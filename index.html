@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harshit Pandey / Salesforce Technical Architect</title>
+<meta name="description" content="Salesforce Technical Architect and applied AI engineer. Eleven years across CPQ, CLM and Industries, building agentic control planes, autonomous Apex test generation and agent driven delivery pipelines.">
+<link rel="canonical" href="https://harshitpandey.in/">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Harshit Pandey / Salesforce Technical Architect">
+<meta property="og:description" content="Eleven years in Salesforce, the last two spent building the AI the platform did not ship with.">
+<meta property="og:url" content="https://harshitpandey.in/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#06312C">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%236FD9C4'/><text x='50' y='70' font-family='Arial,sans-serif' font-size='58' font-weight='900' text-anchor='middle' fill='%2306312C'>HP</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --deep:#06312C;--deep-2:#0A3A34;--deep-3:#0E463F;
+  --line:#1E5B53;--line-2:#2A6A62;
+  --mint:#6FD9C4;--mint-dim:#3FA894;
+  --ember:#FF8A5C;--gold:#F0C05A;
+  --ink:#EAF4F1;--ink-2:#BBD8D2;--ink-3:#7FA8A3;
+  --f-d:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-b:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-m:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --measure:68ch;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--deep);color:var(--ink);font-family:var(--f-b);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+::selection{background:var(--mint);color:var(--deep)}
+a{color:var(--mint)}
+:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
+h1,h2,h3,h4,h5{margin:0}
+p{margin:0}
+img{max-width:100%}
+
+.topbar{position:sticky;top:0;z-index:20;background:var(--deep);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:12px clamp(14px,3vw,26px);flex-wrap:wrap}
+.mark{font-family:var(--f-d);font-weight:900;font-size:15px;letter-spacing:-.04em;background:var(--mint);color:var(--deep);padding:5px 8px;flex:none}
+.who b{font-family:var(--f-d);font-weight:800;font-size:16px;letter-spacing:-.02em;display:block;line-height:1.15}
+.who span{font-family:var(--f-m);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mint-dim)}
+.topbar .sp{margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.status{display:inline-flex;align-items:center;gap:7px;font-family:var(--f-m);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mint);border:1px solid var(--line-2);padding:5px 10px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--mint);flex:none}
+@media (prefers-reduced-motion:no-preference){.dot{animation:blip 2.4s ease-in-out infinite}@keyframes blip{0%,100%{opacity:1}50%{opacity:.2}}}
+.cv{font-family:var(--f-m);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;background:var(--mint);color:var(--deep);text-decoration:none;padding:8px 14px}
+.cv:hover{background:#8AE6D3}
+.topbar a.mail{font-family:var(--f-m);font-size:12.5px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line-2)}
+.topbar a.mail:hover{color:var(--ember);border-color:var(--ember)}
+@media (max-width:620px){.topbar a.mail{display:none}}
+
+.shell{display:grid;grid-template-columns:186px 1fr;min-height:calc(100vh - 58px)}
+@media (max-width:820px){.shell{grid-template-columns:1fr}}
+.rail{border-right:1px solid var(--line);padding:16px 0;position:sticky;top:58px;align-self:start}
+@media (max-width:820px){.rail{position:sticky;top:57px;z-index:15;border-right:0;border-bottom:1px solid var(--line);display:flex;overflow-x:auto;padding:0;background:var(--deep)}}
+.rail button{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;font-family:var(--f-m);font-size:12px;letter-spacing:.06em;color:var(--ink-3);padding:10px 18px;border-left:2px solid transparent}
+.rail button:hover{color:var(--ink)}
+.rail button[aria-selected="true"]{color:var(--mint);border-left-color:var(--mint);background:var(--deep-2)}
+.rail button .idx{color:var(--line-2);margin-right:8px}
+.rail button[aria-selected="true"] .idx{color:var(--ember)}
+@media (max-width:820px){.rail button{width:auto;white-space:nowrap;border-left:0;border-bottom:2px solid transparent;padding:12px 14px}.rail button[aria-selected="true"]{border-left:0;border-bottom-color:var(--mint);background:none}.rail button .idx{display:none}}
+
+.panel{padding:clamp(20px,3.4vw,40px) clamp(16px,3.4vw,44px) 80px;max-width:1180px}
+.panel[hidden]{display:none}
+.phead{margin-bottom:26px}
+.phead h2{font-family:var(--f-d);font-weight:800;font-size:clamp(24px,3.2vw,34px);letter-spacing:-.033em;color:#fff;text-wrap:balance}
+.phead .bar{height:3px;width:56px;background:var(--ember);margin:10px 0}
+.phead p{color:var(--ink-3);font-size:14px;max-width:var(--measure)}
+.eyebrow{font-family:var(--f-m);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mint);margin-bottom:14px}
+
+.pitch{font-size:clamp(17px,2vw,21px);line-height:1.45;color:var(--ink-2);max-width:40ch;margin-bottom:28px}
+.pitch b{color:#fff;font-weight:600}
+.band{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:18px;border-top:2px solid var(--mint);padding-top:18px;margin-bottom:30px}
+.band .n{font-family:var(--f-d);font-weight:800;font-size:clamp(28px,3.6vw,40px);line-height:1;color:#fff;letter-spacing:-.035em;display:block;font-variant-numeric:tabular-nums}
+.band .k{font-family:var(--f-m);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ember);margin-top:9px;display:block}
+.band .s{font-size:12.5px;color:var(--ink-3);margin-top:4px;display:block;line-height:1.38}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.card{border:1px solid var(--line);background:var(--deep-2);padding:18px}
+.card h4{font-family:var(--f-d);font-weight:700;font-size:17px;color:#fff;letter-spacing:-.015em;margin-bottom:3px}
+.card .tag{font-family:var(--f-m);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);display:block;margin-bottom:10px}
+.card p{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+
+.fitgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:24px;align-items:start}
+@media (max-width:900px){.fitgrid{grid-template-columns:1fr}}
+.inputbox,.result{border:1px solid var(--line-2);background:var(--deep-2)}
+.inputbox .hd,.result .hd{background:var(--deep-3);padding:10px 14px;font-family:var(--f-m);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mint);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.inputbox .hd .sp{margin-left:auto;color:var(--ink-3);letter-spacing:.04em;text-transform:none}
+.inputbox .bd,.result .bd{padding:14px}
+.result .bd{padding:18px}
+#jd{width:100%;min-height:210px;resize:vertical;background:var(--deep);border:1px solid var(--line);color:var(--ink);font-family:var(--f-m);font-size:12.5px;line-height:1.55;padding:12px}
+#jd::placeholder{color:var(--ink-3)}
+#jd:focus{outline:none;border-color:var(--mint)}
+.btnrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.btn{font-family:var(--f-m);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--mint);color:var(--deep);border:1px solid var(--mint);padding:11px 20px;cursor:pointer}
+.btn:hover{background:#8AE6D3}
+.btn[disabled]{opacity:.4;cursor:default}
+.btn.ghost{background:transparent;color:var(--ink-3);border-color:var(--line-2)}
+.btn.ghost:hover{color:var(--ink);border-color:var(--mint)}
+.samples{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.samples button{font-family:var(--f-m);font-size:11px;color:var(--ink-3);background:none;border:1px dashed var(--line-2);padding:6px 11px;cursor:pointer}
+.samples button:hover{color:var(--mint);border-color:var(--mint)}
+.empty{color:var(--ink-3);font-size:13.5px;line-height:1.55}
+.verdict{display:flex;gap:16px;align-items:flex-start;margin-bottom:18px;flex-wrap:wrap}
+.score{flex:none;width:76px;height:76px;border:2px solid var(--mint);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score b{font-family:var(--f-d);font-weight:800;font-size:26px;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.score span{font-family:var(--f-m);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--mint);margin-top:3px}
+.score.partial{border-color:var(--gold)}.score.partial span{color:var(--gold)}
+.score.weak{border-color:var(--ember)}.score.weak span{color:var(--ember)}
+.vtext{flex:1 1 220px;min-width:0}
+.vtext b{display:block;font-family:var(--f-d);font-weight:700;font-size:17px;color:#fff;line-height:1.3;margin-bottom:6px;letter-spacing:-.015em}
+.vtext p{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.dim{padding:10px 0;border-top:1px solid var(--line)}
+.dim .row{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.dim .row b{font-size:13.5px;color:#fff;font-weight:600}
+.dim .row em{font-family:var(--f-m);font-style:normal;font-size:11px;color:var(--mint);font-variant-numeric:tabular-nums}
+.meter{height:4px;background:var(--line);margin:7px 0;position:relative;overflow:hidden}
+.meter i{position:absolute;left:0;top:0;bottom:0;background:var(--mint);display:block}
+.meter i.mid{background:var(--gold)}.meter i.low{background:var(--ember)}
+.dim p{font-size:12.5px;color:var(--ink-3);line-height:1.5}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:640px){.twocol{grid-template-columns:1fr}}
+.twocol h5{font-family:var(--f-m);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--mint);margin-bottom:9px}
+.twocol h5.warn{color:var(--ember)}
+.twocol ul,.qs ul{margin:0;padding:0;list-style:none}
+.twocol li{position:relative;padding-left:15px;font-size:12.8px;color:var(--ink-2);line-height:1.46;margin-bottom:6px}
+.twocol li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:1px;background:var(--mint)}
+.twocol .gaps li::before{background:var(--ember)}
+.qs{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.qs h5{font-family:var(--f-m);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:9px}
+.qs li{font-size:12.8px;color:var(--ink-2);line-height:1.46;margin-bottom:6px;padding-left:15px;position:relative}
+.qs li::before{content:"?";position:absolute;left:0;top:0;color:var(--gold);font-family:var(--f-m);font-size:11px}
+.note{font-family:var(--f-m);font-size:11.5px;color:var(--ink-3);margin-top:12px}
+.note.warn{color:var(--ember)}
+.spin{display:inline-block;width:9px;height:9px;background:var(--mint);margin-right:8px}
+@media (prefers-reduced-motion:no-preference){.spin{animation:blip 1s steps(2) infinite}}
+.offline{border:1px dashed var(--line-2);padding:16px;background:var(--deep-2)}
+.offline b.hd{display:block;font-family:var(--f-m);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.offline p{font-size:13.2px;color:var(--ink-2);line-height:1.55;max-width:var(--measure)}
+.offline p b{color:#fff;font-weight:600}
+
+.sys{border:1px solid var(--line);background:var(--deep-2);margin-bottom:14px}
+.sys > button{width:100%;text-align:left;background:none;border:0;cursor:pointer;color:inherit;padding:16px 18px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.sys > button:hover{background:var(--deep-3)}
+.sys h4{font-family:var(--f-d);font-weight:700;font-size:18px;color:#fff;letter-spacing:-.018em}
+.sys .tag{font-family:var(--f-m);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ember)}
+.sys .chev{margin-left:auto;font-family:var(--f-m);font-size:11px;color:var(--mint)}
+.sys .body{padding:0 18px 18px;border-top:1px solid var(--line)}
+.sys .body[hidden]{display:none}
+.sys .body p{font-size:13.8px;color:var(--ink-2);line-height:1.55;margin-top:14px;max-width:var(--measure)}
+.sys .body ul{margin:12px 0 0;padding:0;list-style:none;max-width:var(--measure)}
+.sys .body li{position:relative;padding-left:16px;font-size:13.2px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.sys .body li::before{content:"";position:absolute;left:0;top:.66em;width:9px;height:1px;background:var(--mint)}
+.sys .body li b{color:#fff;font-weight:600}
+.kv{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.kv span{font-family:var(--f-m);font-size:10.5px;color:var(--mint);border:1px solid var(--line-2);padding:3px 9px}
+
+.role{display:grid;grid-template-columns:118px 1fr;margin-bottom:26px}
+@media (max-width:700px){.role{grid-template-columns:1fr;gap:10px}}
+.when{padding-right:20px;text-align:right}
+@media (max-width:700px){.when{text-align:left;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}}
+.when .yr{font-family:var(--f-d);font-weight:800;font-size:26px;line-height:.95;color:var(--mint);letter-spacing:-.035em;display:block}
+.when .to{font-family:var(--f-m);font-size:11px;color:var(--ink-3);display:block;margin-top:5px}
+.when .tag{display:inline-block;margin-top:9px;background:var(--ember);color:var(--deep);font-family:var(--f-m);font-size:9px;font-weight:600;letter-spacing:.1em;padding:3px 6px}
+@media (max-width:700px){.when .to,.when .tag{margin-top:0}}
+.rmain{padding-left:24px;border-left:1px solid var(--line)}
+@media (max-width:700px){.rmain{padding-left:0;border-left:0}}
+.rmain h3{font-family:var(--f-d);font-weight:700;font-size:20px;color:#fff;letter-spacing:-.02em;margin-bottom:4px}
+.rmain .org{font-size:14.5px;color:var(--ink-2);margin-bottom:3px}
+.rmain .org b{color:var(--mint);font-weight:600}
+.rmain .loc{font-family:var(--f-m);font-size:11px;color:var(--ink-3);margin-bottom:12px}
+.rmain ul{margin:0;padding:0;list-style:none;max-width:var(--measure)}
+.rmain li{position:relative;padding-left:17px;font-size:13.8px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
+.rmain li::before{content:"";position:absolute;left:0;top:.66em;width:9px;height:1px;background:var(--mint-dim)}
+.rmain li b{color:#fff;font-weight:600}
+
+.matrix{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:22px}
+.matrix h4{font-family:var(--f-d);font-weight:700;font-size:16px;color:var(--mint);margin-bottom:2px}
+.matrix .since{font-family:var(--f-m);font-size:10px;color:var(--ember);display:block;margin-bottom:11px;letter-spacing:.05em}
+.matrix ul{margin:0;padding:0;list-style:none;border-top:2px solid var(--line-2)}
+.matrix li{display:flex;justify-content:space-between;gap:10px;align-items:baseline;font-size:13.2px;color:var(--ink-2);padding:7px 0;border-bottom:1px solid var(--line)}
+.matrix li em{font-family:var(--f-m);font-style:normal;font-size:10px;color:var(--ink-3);white-space:nowrap}
+.figwrap{margin-top:30px}
+.figcap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--f-m);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mint);border-bottom:1px solid var(--line-2);padding-bottom:10px;margin-bottom:16px}
+.figcap i{font-style:normal;color:var(--ink-3);letter-spacing:.03em;text-transform:none}
+.figscroll{overflow-x:auto}
+.figscroll > svg{display:block;width:100%;min-width:640px;height:auto}
+.figscroll path[stroke]{stroke-dasharray:5 7}
+@media (prefers-reduced-motion:no-preference){.figscroll path[stroke]{animation:flow 2.6s linear infinite}@keyframes flow{to{stroke-dashoffset:-24}}}
+.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:9px;margin-top:22px}
+.certs span{font-size:13.5px;color:var(--ink);background:var(--deep-2);border-left:3px solid var(--mint-dim);padding:10px 14px;display:flex;align-items:center;gap:10px}
+.certs span.aic{border-left-color:var(--ember);font-weight:600}
+.certs span i{font-family:var(--f-m);font-style:normal;font-size:9px;font-weight:600;letter-spacing:.06em;background:var(--ember);color:var(--deep);padding:2px 5px}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.chip{font-family:var(--f-m);font-size:11.5px;color:var(--ink-2);background:var(--deep-2);border:1px solid var(--line-2);padding:8px 13px;cursor:pointer}
+.chip:hover{border-color:var(--mint);color:var(--mint)}
+.askrow{display:flex;gap:9px;flex-wrap:wrap}
+#q{flex:1 1 300px;min-width:0;font-family:var(--f-m);font-size:13.5px;color:var(--ink);background:var(--deep-2);border:1px solid var(--line-2);padding:12px 14px}
+#q::placeholder{color:var(--ink-3)}
+#q:focus{outline:none;border-color:var(--mint)}
+.answer{margin-top:18px;padding:17px 19px;background:var(--deep-2);border-left:3px solid var(--ember);font-size:14.5px;line-height:1.66;white-space:pre-wrap;color:var(--ink-2);max-width:var(--measure)}
+.answer:empty{display:none}
+
+.endnote{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-family:var(--f-m);font-size:11.5px;color:var(--ink-3);line-height:1.7}
+.endnote b{color:var(--ink-2);font-weight:500}
+footer{border-top:1px solid var(--line);padding:18px clamp(16px,3.4vw,44px);font-family:var(--f-m);font-size:11px;color:var(--ink-3);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--ink-3);text-decoration:none}
+footer a:hover{color:var(--mint)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <span class="mark">HP</span>
+  <span class="who"><b>Harshit Pandey</b><span>Salesforce Technical Architect / Applied AI</span></span>
+  <span class="sp">
+    <span class="status"><span class="dot"></span>Open to roles</span>
+    <a class="cv" href="mailto:hprishu@gmail.com">hprishu@gmail.com</a>
+  </span>
+</header>
+
+<div class="shell">
+  <nav class="rail" role="tablist" aria-label="Sections">
+    <button role="tab" aria-selected="true"  aria-controls="p-overview" id="t-overview"><span class="idx">01</span>Overview</button>
+    <button role="tab" aria-selected="false" aria-controls="p-fit"      id="t-fit"><span class="idx">02</span>Role fit</button>
+    <button role="tab" aria-selected="false" aria-controls="p-systems"  id="t-systems"><span class="idx">03</span>AI systems</button>
+    <button role="tab" aria-selected="false" aria-controls="p-record"   id="t-record"><span class="idx">04</span>Track record</button>
+    <button role="tab" aria-selected="false" aria-controls="p-cap"      id="t-cap"><span class="idx">05</span>Capability</button>
+    <button role="tab" aria-selected="false" aria-controls="p-ask"      id="t-ask"><span class="idx">06</span>Ask</button>
+  </nav>
+
+  <main>
+  <section class="panel" id="p-overview" role="tabpanel" aria-labelledby="t-overview">
+    <h1 class="pitch">Eleven years in Salesforce, the last two spent building the AI the platform did not ship with: <b>an agentic control plane over the org</b>, <b>autonomous Apex test generation</b> inside the Einstein trust boundary, and <b>an agent driven delivery pipeline</b> that carries a ticket from branch to deployment to written documentation.</h1>
+
+    <div class="band">
+      <div><span class="n">11.1</span><span class="k">Years Salesforce</span><span class="s">Continuous, since Aug 2015</span></div>
+      <div><span class="n">4</span><span class="k">AI systems built</span><span class="s">Designed, shipped, documented</span></div>
+      <div><span class="n">800k</span><span class="k">Customers migrated</span><span class="s">B2C and B2B, off legacy</span></div>
+      <div><span class="n">9</span><span class="k">Certifications</span><span class="s">Including AI Specialist</span></div>
+      <div><span class="n">3</span><span class="k">CPQ / CLM stacks</span><span class="s">Shipped to production</span></div>
+    </div>
+
+    <div class="eyebrow">What this console is for</div>
+    <div class="cards">
+      <div class="card"><h4>Role fit</h4><span class="tag">Tab 02</span><p>Paste the job description you are hiring for. It scores the fit against the verified record, dimension by dimension, and names the gaps rather than hiding them.</p></div>
+      <div class="card"><h4>AI systems</h4><span class="tag">Tab 03</span><p>The four systems, with the engineering decisions behind them. The safety design is the interesting part, not the feature list.</p></div>
+      <div class="card"><h4>Ask</h4><span class="tag">Tab 06</span><p>Any question about the record, answered from it alone, including an honest "not covered here" when that is the truth.</p></div>
+    </div>
+
+    <div class="endnote">
+      <b>Bengaluru, India</b> &nbsp;·&nbsp; <a href="mailto:hprishu@gmail.com">hprishu@gmail.com</a> &nbsp;·&nbsp; +91 98866 77953 &nbsp;·&nbsp; English C2, Hindi C2, Spanish A1<br>
+      Open to Technical Architect, Technical Lead, Engineering Manager and Salesforce AI roles.
+    </div>
+  </section>
+
+  <section class="panel" id="p-fit" role="tabpanel" aria-labelledby="t-fit" hidden>
+    <div class="phead">
+      <h2>Role fit</h2><div class="bar"></div>
+      <p>Paste a job description. The assessment is generated from the verified record on this site and nothing else, and is instructed to report gaps honestly rather than sell.</p>
+    </div>
+    <div class="fitgrid">
+      <div class="inputbox">
+        <div class="hd"><span>Job description</span><span class="sp" id="fitstat">checking</span></div>
+        <div class="bd">
+          <textarea id="jd" placeholder="Paste the role's requirements here, or load one of the examples below."></textarea>
+          <div class="btnrow">
+            <button class="btn" id="fitgo" type="button">Assess fit</button>
+            <button class="btn ghost" id="fitclear" type="button">Clear</button>
+          </div>
+          <div class="samples" id="fitsamples">
+            <button type="button" data-k="arch">Salesforce Technical Architect</button>
+            <button type="button" data-k="ai">AI Platform Engineer</button>
+            <button type="button" data-k="lead">Engineering Manager, CRM</button>
+          </div>
+        </div>
+      </div>
+      <div class="result">
+        <div class="hd">Assessment</div>
+        <div class="bd" id="fitout">
+          <p class="empty">No assessment yet. Paste a job description and press <b>Assess fit</b>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-systems" role="tabpanel" aria-labelledby="t-systems" hidden>
+    <div class="phead"><h2>AI systems</h2><div class="bar"></div><p>Four systems designed, built and documented at Bazaarvoice. Expand any one for the engineering decisions behind it.</p></div>
+
+    <div class="sys">
+      <button type="button" aria-expanded="true"><h4>BV Cortex</h4><span class="tag">Agentic control plane</span><span class="chev">collapse</span></button>
+      <div class="body">
+        <p>Five scored lenses over one Salesforce estate, covering spend, health, adoption, commitment and data. Each finding is priced in dollars where a defensible rate exists, and the lot is ranked as a single backlog under one composite score. The question it answers is not "is the org healthy" but "what should we do next week, and what is it worth".</p>
+        <ul>
+          <li><b>The composite is capped at 15 points above the weakest lens.</b> A majority of healthy lenses is not allowed to mask a critical one, which is exactly what an average would do.</li>
+          <li><b>Roughly 90 percent of it has no model in it at all.</b> Deliberate: a number that needs a model to produce is a number nobody can audit.</li>
+          <li><b>Cannot write to production by construction.</b> Not configured not to. The class that talks to production issues GET and contains no method capable of sending a record.</li>
+          <li><b>The agent proposes, a human disposes.</b> The analyst runs in GitHub Actions, writes a fix and opens a draft pull request. It never auto merges. Change plans go propose, approve, dispatch, verify, and the executor takes an id, not a payload, so the set of things it can do is exactly the set somebody read and approved.</li>
+          <li><b>Provenance is read from the data, not the settings.</b> A source badge rendered from configuration once displayed a stale sandbox snapshot under a production label. It now reads the org stamped on the rows themselves.</li>
+        </ul>
+        <div class="kv"><span>Apex</span><span>LWC</span><span>Tooling API</span><span>Data Cloud</span><span>MCP</span><span>GitHub Actions</span><span>Slack</span></div>
+      </div>
+    </div>
+
+    <div class="sys">
+      <button type="button" aria-expanded="false"><h4>AI Apex Test Autopilot</h4><span class="tag">Autonomous test generation</span><span class="chev">expand</span></button>
+      <div class="body" hidden>
+        <p>Salesforce native autonomous Apex test generation, coverage measurement and failing test repair, built against an org of over 1,000 Apex classes carrying a backlog of failing test methods and classes with no test at all.</p>
+        <ul>
+          <li><b>Runs on the in platform Models API</b>, behind the Einstein Trust Layer. No external callout, no API keys, and no code leaves the Salesforce trust boundary.</li>
+          <li><b>Model agnostic through configuration.</b> The model name is config, so it can be repointed without a deploy.</li>
+          <li><b>Four modes:</b> generate a new test class, extend an existing one while preserving every method, repair to close a coverage gap, and fix a broken developer written test.</li>
+          <li><b>Every prompt carries hard rules that are scar tissue from observed failures.</b> The load bearing one: every method must contain a meaningful assertion. Without it a model writes a method that calls everything, asserts nothing, and reports full coverage.</li>
+          <li><b>Bulk and delta aware.</b> Rules force a 200 record scenario, because governor limits are where Salesforce code actually breaks, and delta based count assertions, because org automation creates extra records.</li>
+        </ul>
+        <div class="kv"><span>Apex</span><span>Models API</span><span>Einstein Trust Layer</span><span>ApexCodeCoverage</span><span>Batchable</span></div>
+      </div>
+    </div>
+
+    <div class="sys">
+      <button type="button" aria-expanded="false"><h4>Agentic delivery pipeline</h4><span class="tag">Claude skills, end to end</span><span class="chev">expand</span></button>
+      <div class="body" hidden>
+        <p>Authored skills that take a ticket the whole way through delivery, with the release tooling underneath built as a native Salesforce application.</p>
+        <ul>
+          <li><b>The skills cover the full loop:</b> branch and pull request, validation and deployment, generated unit tests, the Confluence technical write up, and the Jira status update.</li>
+          <li><b>The tooling underneath is a native Salesforce CI/CD app</b> I built: a Lightning Web Component application unifying Salesforce, GitHub and Jira, replacing hand built package.xml files, CLI deploys and manual ticket updates.</li>
+          <li><b>An 8 step staging pipeline and a 9 step production pipeline</b>, the second adding a code review gate before validation. A ticket can sit in a staging and a production release at once, matching how work actually promotes.</li>
+          <li><b>Deployment through GitHub Actions</b> with automatic quick deploy fallback, real time progress polling, and capture of component counts, test results and error detail back onto the run record.</li>
+          <li><b>Path resolution across 40+ metadata types</b>, including child metadata, folder based bundles and the types with irregular naming that break naive implementations. Pipeline behaviour lives in Custom Metadata, so it retunes without a deploy.</li>
+        </ul>
+        <div class="kv"><span>Claude skills</span><span>LWC</span><span>GitHub Actions</span><span>Jira REST</span><span>Metadata API</span><span>Custom Metadata</span></div>
+      </div>
+    </div>
+
+    <div class="sys">
+      <button type="button" aria-expanded="false"><h4>Support AI and Agentforce</h4><span class="tag">Shipped and governed</span><span class="chev">expand</span></button>
+      <div class="body" hidden>
+        <p>The applied end: getting generative features in front of support agents, then measuring whether they were actually worth the credits.</p>
+        <ul>
+          <li><b>Instrumented the Support AI platform.</b> Prompt metric tracking and agent feedback across Suggested Reply, Similar Cases and Internal Assistance, which previously had no visibility into whether agents found the output useful.</li>
+          <li><b>Agentforce case deflection</b> proof of concept, and grounded case comment generation through Prompt Builder on the case comment screen.</li>
+          <li><b>Similar case matching</b> on the Case record, matched on subject, description, issue type and product, restricted to resolved cases with real comments.</li>
+          <li><b>Agentforce Flex Credit overage root cause analysis and control playbook</b>, written as an internal leadership briefing: what was over, where the credits went, when, why, and the controls to stop it recurring.</li>
+          <li><b>Salesforce MCP adoption</b> with propose, approve, dispatch and verify gating, and independent checks that prove the target org is a sandbox before any write leaves.</li>
+        </ul>
+        <div class="kv"><span>Agentforce</span><span>Prompt Builder</span><span>Flow</span><span>Visualforce</span><span>Data Cloud</span><span>MCP</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-record" role="tabpanel" aria-labelledby="t-record" hidden>
+    <div class="phead"><h2>Track record</h2><div class="bar"></div><p>Five roles, four employers, continuous since August 2015 with no gaps.</p></div>
+
+    <div class="role">
+      <div class="when"><span class="yr">2025</span><span class="to">to now</span><span class="tag">CURRENT</span></div>
+      <div class="rmain">
+        <h3>Salesforce Administrator, CRM Platform and AI</h3>
+        <p class="org"><b>Bazaarvoice</b> / BTO India, CRM</p>
+        <p class="loc">Bengaluru, India / Aug 2025 to Present</p>
+        <ul>
+          <li>Built <b>BV Cortex</b>, an agentic control plane over the Salesforce estate, and <b>AI Apex Test Autopilot</b>, autonomous Apex test generation inside the Einstein trust boundary.</li>
+          <li>Authored the <b>Claude skills that automate delivery</b> end to end, over a native Salesforce CI/CD application I also architected and built.</li>
+          <li>Instrumented the <b>Support AI platform</b> and produced the <b>Agentforce credit governance</b> playbook for leadership.</li>
+          <li>Led the <b>DocuSign API connector migration</b> ahead of a hard package end of life, and ran the Salesforce service queue alongside the build work, covering access governance, CPQ quote and amendment defects and Certinia PSA support.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="when"><span class="yr">2023</span><span class="to">to 2025</span></div>
+      <div class="rmain">
+        <h3>Technical Lead</h3>
+        <p class="org"><b>Prodapt</b> / Liberty Latin America, "Peacock" programme</p>
+        <p class="loc">Panama City, Panama (onsite, Jul 2023 to Mar 2025), then Bengaluru</p>
+        <ul>
+          <li>Led <b>full stack B2C and B2B migration of 800,000 customers</b> onto Salesforce, resolving critical production issues during live migration at the client site.</li>
+          <li>Designed and implemented end to end <b>Salesforce Industries (Vlocity) CPQ and Order Management</b>: OmniScripts, Integration Procedures, DataRaptors, decomposition, orchestration and advanced product configuration.</li>
+          <li>Built the custom layer in <b>Apex, LWC and Flows</b>, integrating <b>ESB, SAP, NOKIA, Matrixx, ARIA, B2BSoft, Asurion, Braintree and TransUnion</b>. Delivery through Copado and Bitbucket.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="when"><span class="yr">2021</span><span class="to">to 2023</span></div>
+      <div class="rmain">
+        <h3>Lead Engineer</h3>
+        <p class="org"><b>Prodapt</b> / Verizon</p>
+        <p class="loc">Bengaluru, India / Apr 2021 to Jul 2023</p>
+        <ul>
+          <li>Led the <b>Apttus CLM implementation across Wireline and Wireless contracting flows</b>, holding one lifecycle model across business units that did not previously share one.</li>
+          <li>Built custom user experiences in <b>LWC and Apex</b>, integrating <b>DocuSign</b> and other third party systems for e signature and data exchange.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="when"><span class="yr">2018</span><span class="to">to 2021</span></div>
+      <div class="rmain">
+        <h3>Associate II</h3>
+        <p class="org"><b>PwC</b> / Advisory, Salesforce practice</p>
+        <p class="loc">Bengaluru, India / Nov 2018 to Apr 2021</p>
+        <ul>
+          <li><b>Global CRM</b>, PwC's own largest internal CRM and CPQ implementation, LWC development.</li>
+          <li><b>Ellie Mae</b>, CPQ pilot run across two stakeholder organisations at once, recognised by client and engagement team.</li>
+          <li><b>Hologic</b>, direct client CPQ assessment and remediation path. <b>PG&amp;E</b>, Conga CLM owned end to end from development through hypercare.</li>
+          <li><b>IVY / BAT Mobility "Petra"</b>, agile Lightning delivery with Heroku integration; travelled to Brazil as lead for a month to run production deployment.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="when"><span class="yr">2015</span><span class="to">to 2018</span></div>
+      <div class="rmain">
+        <h3>Senior System Engineer</h3>
+        <p class="org"><b>Infosys</b> / Virgin Media Business (Liberty Global, UK)</p>
+        <p class="loc">Mysore, India / Aug 2015 to Nov 2018</p>
+        <ul>
+          <li>Order management across <b>new provides and MACD</b>, spanning Sales and Service in Salesforce Classic, on a programme run in PI and sprints.</li>
+          <li>Resolved <b>governor limit failures</b>, both SOQL query limits and CPU timeouts, in code paths that had outgrown their design.</li>
+          <li>Part of every major production release, and received the <b>Infosys Insta Award</b> with recognition from the delivery manager, senior manager and client.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="endnote">
+      <b>Education</b> B.Tech, University of Petroleum and Energy Studies, Dehradun, 2015 (81.2%). ISC 2011 (87.3%) and ICSE 2009 (87.7%), W. H. Smith Memorial School, Varanasi.
+    </div>
+  </section>
+
+  <section class="panel" id="p-cap" role="tabpanel" aria-labelledby="t-cap" hidden>
+    <div class="phead"><h2>Capability</h2><div class="bar"></div><p>Depth, and when each was last load bearing.</p></div>
+    <div class="matrix">
+      <div><h4>Applied AI</h4><span class="since">Certified and shipped</span>
+        <ul><li>Agentic system design <em>2026</em></li><li>Salesforce Models API <em>2026</em></li><li>Agentforce, Prompt Builder <em>2026</em></li><li>MCP, tool gating <em>2026</em></li><li>Claude skills, agent workflows <em>2026</em></li></ul></div>
+      <div><h4>Salesforce core</h4><span class="since">Continuous since 2015</span>
+        <ul><li>Apex, triggers, async <em>2015 on</em></li><li>Lightning Web Components <em>2019 on</em></li><li>Flow and declarative <em>2018 on</em></li><li>Data model and sharing <em>2015 on</em></li><li>Governor limit tuning <em>2016 on</em></li></ul></div>
+      <div><h4>Industries, CPQ, CLM</h4><span class="since">Three stacks in production</span>
+        <ul><li>Vlocity CPQ and OM <em>2023 to 25</em></li><li>OmniStudio, IP, DataRaptor <em>2023 to 25</em></li><li>Apttus CLM <em>2021 to 23</em></li><li>Conga CLM and Composer <em>2018 to 19</em></li><li>Salesforce CPQ <em>2020 on</em></li></ul></div>
+      <div><h4>Platform and DevOps</h4><span class="since">Built, not just used</span>
+        <ul><li>Metadata and Tooling API <em>2025 on</em></li><li>CI/CD pipeline design <em>2025 on</em></li><li>GitHub Actions, Git flow <em>2025 on</em></li><li>Copado <em>2023 to 25</em></li><li>Dependency analysis <em>2026</em></li></ul></div>
+      <div><h4>Integration</h4><span class="since">Telecom, finance, identity</span>
+        <ul><li>REST and ESB patterns <em>2023 on</em></li><li>OSS/BSS: NOKIA, Matrixx, ARIA <em>2023 to 25</em></li><li>SAP, Braintree, TransUnion <em>2023 to 25</em></li><li>DocuSign e signature <em>2021 on</em></li><li>Jira and GitHub APIs <em>2025 on</em></li></ul></div>
+      <div><h4>Leadership</h4><span class="since">Onsite, client facing</span>
+        <ul><li>Technical leadership <em>2021 on</em></li><li>Onsite delivery <em>2019, 2023 to 25</em></li><li>Stakeholder management <em>2019 on</em></li><li>Cutover and hypercare <em>2018 on</em></li></ul></div>
+    </div>
+
+    <div class="certs">
+      <span class="aic"><i>AI</i>Salesforce AI Specialist</span>
+      <span class="aic"><i>AI</i>Salesforce AI Associate</span>
+      <span>Platform Developer I</span>
+      <span>Platform App Builder</span>
+      <span>Sales Cloud Consultant</span>
+      <span>Salesforce Administrator</span>
+      <span>Apttus CPQ 201 Level 1</span>
+      <span>Conga Contract Consultant</span>
+      <span>Conga Composer Consultant</span>
+    </div>
+
+    <div class="figwrap">
+      <div class="figcap"><span>Fig. 1 / Integration surface, 2015 to 2026</span><i>Systems made to talk to Salesforce</i></div>
+      <div class="figscroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="IBM Plex Mono, monospace"><path d="M250 118 H300 V235 H340" fill="none" stroke="#2A6A62" stroke-width="1.8"/><path d="M250 196 H300 V235 H340" fill="none" stroke="#2A6A62" stroke-width="1.8"/><path d="M250 274 H300 V235 H340" fill="none" stroke="#2A6A62" stroke-width="1.8"/><path d="M250 352 H300 V235 H340" fill="none" stroke="#2A6A62" stroke-width="1.8"/><path d="M460 235 H520 V107 H566" fill="none" stroke="#FF8A5C" stroke-width="2" opacity=".75"/><path d="M460 235 H520 V242 H566" fill="none" stroke="#F0C05A" stroke-width="2" opacity=".75"/><path d="M460 235 H520 V377 H566" fill="none" stroke="#9DC3BE" stroke-width="2" opacity=".75"/><text x="24" y="52" font-size="15" font-weight="600" fill="#6FD9C4" letter-spacing="2">PLATFORM LAYER</text><rect x="24" y="90" width="226" height="56" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.6"/><rect x="24" y="90" width="5" height="56" fill="#6FD9C4"/><text x="44" y="124" font-size="17" font-weight="500" fill="#E6F2EF">Vlocity / OmniStudio</text><rect x="24" y="168" width="226" height="56" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.6"/><rect x="24" y="168" width="5" height="56" fill="#6FD9C4"/><text x="44" y="202" font-size="17" font-weight="500" fill="#E6F2EF">Apttus CLM</text><rect x="24" y="246" width="226" height="56" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.6"/><rect x="24" y="246" width="5" height="56" fill="#6FD9C4"/><text x="44" y="280" font-size="17" font-weight="500" fill="#E6F2EF">Conga CLM</text><rect x="24" y="324" width="226" height="56" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.6"/><rect x="24" y="324" width="5" height="56" fill="#6FD9C4"/><text x="44" y="358" font-size="17" font-weight="500" fill="#E6F2EF">Salesforce CPQ</text><circle cx="400" cy="235" r="60" fill="#6FD9C4"/><text x="400" y="230" font-size="24" font-weight="600" fill="#06312C" text-anchor="middle">SFDC</text><text x="400" y="253" font-size="12" fill="#06312C" text-anchor="middle" letter-spacing="1.5" opacity=".75">CORE</text><text x="566" y="26" font-size="15" font-weight="600" fill="#6FD9C4" letter-spacing="2">EXTERNAL SYSTEMS</text><rect x="566" y="50" width="410" height="115" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.2" opacity=".9"/><rect x="566" y="50" width="410" height="4" fill="#FF8A5C"/><text x="586" y="78" font-size="13" font-weight="600" fill="#FF8A5C" letter-spacing="1.4">TELECOM / OSS-BSS</text><circle cx="589" cy="103" r="3.4" fill="#FF8A5C"/><text x="602" y="108" font-size="16" fill="#E6F2EF">ESB</text><circle cx="789" cy="103" r="3.4" fill="#FF8A5C"/><text x="802" y="108" font-size="16" fill="#E6F2EF">NOKIA</text><circle cx="589" cy="127" r="3.4" fill="#FF8A5C"/><text x="602" y="132" font-size="16" fill="#E6F2EF">Matrixx</text><circle cx="789" cy="127" r="3.4" fill="#FF8A5C"/><text x="802" y="132" font-size="16" fill="#E6F2EF">B2BSoft</text><circle cx="589" cy="151" r="3.4" fill="#FF8A5C"/><text x="602" y="156" font-size="16" fill="#E6F2EF">Asurion</text><rect x="566" y="195" width="410" height="95" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.2" opacity=".9"/><rect x="566" y="195" width="410" height="4" fill="#F0C05A"/><text x="586" y="223" font-size="13" font-weight="600" fill="#F0C05A" letter-spacing="1.4">BILLING, FINANCE, IDENTITY</text><circle cx="589" cy="248" r="3.4" fill="#F0C05A"/><text x="602" y="253" font-size="16" fill="#E6F2EF">SAP</text><circle cx="789" cy="248" r="3.4" fill="#F0C05A"/><text x="802" y="253" font-size="16" fill="#E6F2EF">ARIA</text><circle cx="589" cy="272" r="3.4" fill="#F0C05A"/><text x="602" y="277" font-size="16" fill="#E6F2EF">Braintree</text><circle cx="789" cy="272" r="3.4" fill="#F0C05A"/><text x="802" y="277" font-size="16" fill="#E6F2EF">TransUnion</text><rect x="566" y="320" width="410" height="115" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.2" opacity=".9"/><rect x="566" y="320" width="410" height="4" fill="#9DC3BE"/><text x="586" y="348" font-size="13" font-weight="600" fill="#9DC3BE" letter-spacing="1.4">DEVOPS / DOCUMENT</text><circle cx="589" cy="373" r="3.4" fill="#9DC3BE"/><text x="602" y="378" font-size="16" fill="#E6F2EF">GitHub</text><circle cx="789" cy="373" r="3.4" fill="#9DC3BE"/><text x="802" y="378" font-size="16" fill="#E6F2EF">Jira</text><circle cx="589" cy="397" r="3.4" fill="#9DC3BE"/><text x="602" y="402" font-size="16" fill="#E6F2EF">Copado</text><circle cx="789" cy="397" r="3.4" fill="#9DC3BE"/><text x="802" y="402" font-size="16" fill="#E6F2EF">Bitbucket</text><circle cx="589" cy="421" r="3.4" fill="#9DC3BE"/><text x="602" y="426" font-size="16" fill="#E6F2EF">DocuSign</text><circle cx="789" cy="421" r="3.4" fill="#9DC3BE"/><text x="802" y="426" font-size="16" fill="#E6F2EF">Heroku</text></svg></div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-ask" role="tabpanel" aria-labelledby="t-ask" hidden>
+    <div class="phead"><h2>Ask</h2><div class="bar"></div>
+      <p>Answers are generated from the verified record on this site and nothing else, and will say so when the record does not cover something.</p></div>
+    <div class="chips" id="chips">
+      <button class="chip" type="button">How deep is the agentic AI work, really?</button>
+      <button class="chip" type="button">What is the evidence of engineering judgement?</button>
+      <button class="chip" type="button">How deep is the Vlocity CPQ and Order Management experience?</button>
+      <button class="chip" type="button">Would he transfer to a non telecom org?</button>
+      <button class="chip" type="button">What has he actually shipped to production?</button>
+    </div>
+    <div class="askrow">
+      <input id="q" type="text" autocomplete="off" placeholder="Ask anything about this record" aria-label="Ask a question about Harshit's experience">
+      <button class="btn" id="go" type="button">Ask</button>
+    </div>
+    <div class="answer" id="ans" aria-live="polite"></div>
+    <p class="note" id="note" hidden></p>
+  </section>
+  </main>
+</div>
+
+<footer>
+  <span>Harshit Pandey / Salesforce Technical Architect / Applied AI</span>
+  <span><a href="mailto:hprishu@gmail.com">hprishu@gmail.com</a> &nbsp;·&nbsp; +91 98866 77953</span>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"Person","name":"Harshit Pandey",
+  "email":"mailto:hprishu@gmail.com","telephone":"+91-98866-77953",
+  "jobTitle":"Salesforce Technical Architect",
+  "address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressCountry":"IN"},
+  "knowsLanguage":["English","Hindi","Spanish"],
+  "alumniOf":{"@type":"CollegeOrUniversity","name":"University of Petroleum and Energy Studies"},
+  "knowsAbout":["Salesforce","Apex","Lightning Web Components","Agentforce","Salesforce Models API","Einstein Trust Layer","MCP","Salesforce Industries","Vlocity CPQ","Order Management","OmniStudio","Apttus CLM","Conga CLM","Salesforce CPQ","CI/CD","Tooling API","Metadata API","Integration architecture"],
+  "hasCredential":[
+    {"@type":"EducationalOccupationalCredential","name":"Salesforce AI Specialist"},
+    {"@type":"EducationalOccupationalCredential","name":"Salesforce AI Associate"},
+    {"@type":"EducationalOccupationalCredential","name":"Salesforce Platform Developer I"},
+    {"@type":"EducationalOccupationalCredential","name":"Salesforce Platform App Builder"},
+    {"@type":"EducationalOccupationalCredential","name":"Salesforce Sales Cloud Consultant"},
+    {"@type":"EducationalOccupationalCredential","name":"Salesforce Administrator"},
+    {"@type":"EducationalOccupationalCredential","name":"Apttus CPQ 201 Level 1"},
+    {"@type":"EducationalOccupationalCredential","name":"Conga Contract Consultant"},
+    {"@type":"EducationalOccupationalCredential","name":"Conga Composer Consultant"}
+  ]
+}
+</script>
+
+<script>
+/* ============================================================
+   ONE SWITCH.
+   Leave API_BASE empty and the site is fully static: every tab
+   reads, and the two AI panels show an honest "not enabled yet".
+   Deploy the Cloudflare Worker in worker.js, paste its URL here,
+   redeploy, and Role fit and Ask come alive. Nothing else changes.
+   ============================================================ */
+var API_BASE = "";   /* e.g. "https://profile-api.yourname.workers.dev" */
+
+var SAMPLE_JDS = {
+ arch: "Salesforce Technical Architect\n\nWe are looking for a Technical Architect to own the architecture of our Salesforce platform across Sales and Service Cloud.\n\nRequirements:\n- 10+ years Salesforce, with deep Apex and Lightning Web Components\n- Proven integration architecture across enterprise systems (ERP, billing, identity)\n- Experience leading a large data migration onto Salesforce\n- CPQ and contract lifecycle management exposure\n- Ownership of release and deployment process, CI/CD\n- Able to lead engineers and work directly with client stakeholders",
+ ai:   "AI Platform Engineer, CRM\n\nYou will build the AI layer on top of our CRM: agentic workflows, retrieval, and the guardrails that make them safe to run against production data.\n\nRequirements:\n- Hands on experience shipping LLM-backed features to production users\n- Agent design: tool use, approval gates, evaluation\n- Understanding of data governance and trust boundaries\n- Strong platform engineering: APIs, CI/CD, automated testing\n- Able to measure whether an AI feature is actually working\n- Salesforce ecosystem experience a strong plus",
+ lead: "Engineering Manager, CRM Platform\n\nLead a small team responsible for our CRM platform and its integrations.\n\nRequirements:\n- Experience leading engineers and owning delivery end to end\n- Strong technical background in Salesforce or comparable enterprise platform\n- Track record of improving delivery process and release quality\n- Comfortable with stakeholder management up to director level\n- Experience running production cutovers and hypercare\n- People management experience preferred"
+};
+
+/* ---------- tabs ---------- */
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.rail button'));
+  function show(id, push){
+    tabs.forEach(function(t){
+      var on = t.getAttribute('aria-controls') === id;
+      t.setAttribute('aria-selected', on ? 'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if(push && history.replaceState) history.replaceState(null,'','#'+id.replace('p-',''));
+    window.scrollTo(0,0);
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click', function(){ show(t.getAttribute('aria-controls'), true); });
+    t.addEventListener('keydown', function(e){
+      var d = (e.key==='ArrowDown'||e.key==='ArrowRight')?1:((e.key==='ArrowUp'||e.key==='ArrowLeft')?-1:0);
+      if(!d) return; e.preventDefault();
+      var n = tabs[(i+d+tabs.length)%tabs.length]; n.focus(); show(n.getAttribute('aria-controls'), true);
+    });
+  });
+  var h=(location.hash||'').replace('#','');
+  if(h && document.getElementById('p-'+h)) show('p-'+h,false);
+})();
+
+/* ---------- collapsibles ---------- */
+document.querySelectorAll('.sys > button').forEach(function(b){
+  b.addEventListener('click', function(){
+    var open = b.getAttribute('aria-expanded')==='true';
+    b.setAttribute('aria-expanded', open?'false':'true');
+    b.parentNode.querySelector('.body').hidden = open;
+    b.querySelector('.chev').textContent = open?'expand':'collapse';
+  });
+});
+
+/* ---------- api helper ---------- */
+var LIVE = !!API_BASE;
+function api(path, body){
+  return fetch(API_BASE.replace(/\/+$/,'') + path, {
+    method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)
+  }).then(function(r){
+    if(r.status === 429) throw new Error('rate');
+    if(!r.ok) throw new Error('http');
+    return r.json();
+  });
+}
+var OFFLINE_MSG = '<div class="offline"><b class="hd">Not switched on yet</b>'
+  + '<p>This panel runs on a small API that is not connected to this site yet. '
+  + 'Everything it would draw on is written out in full under <b>AI systems</b>, <b>Track record</b> and <b>Capability</b>, '
+  + 'so nothing on this site depends on it.</p></div>';
+
+/* ---------- role fit ---------- */
+(function(){
+  var jd=document.getElementById('jd'), go=document.getElementById('fitgo'),
+      clr=document.getElementById('fitclear'), out=document.getElementById('fitout'),
+      samples=document.getElementById('fitsamples'), stat=document.getElementById('fitstat');
+
+  stat.textContent = LIVE ? 'ready' : 'offline';
+  if(!LIVE){ out.innerHTML = OFFLINE_MSG; go.disabled = true; }
+
+  samples.addEventListener('click', function(e){
+    var b=e.target.closest('button[data-k]'); if(!b) return;
+    jd.value = SAMPLE_JDS[b.getAttribute('data-k')]||''; jd.focus();
+  });
+  clr.addEventListener('click', function(){
+    jd.value=''; out.innerHTML = LIVE ? '<p class="empty">Cleared. Paste a job description and press <b>Assess fit</b>.</p>' : OFFLINE_MSG;
+  });
+
+  function esc(t){ return String(t==null?'':t).replace(/[<>&]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;'}[c];}); }
+  function cls(n){ return n>=70?'':(n>=45?'mid':'low'); }
+
+  function render(d){
+    var v=(d.verdict||'').toLowerCase(), sc=Math.max(0,Math.min(100,Number(d.score)||0));
+    var ring = v==='weak'?'weak':(v==='partial'?'partial':'');
+    var h='<div class="verdict"><div class="score '+ring+'"><b>'+sc+'</b><span>'+esc(d.verdict||'fit')+'</span></div>'
+      +'<div class="vtext"><b>'+esc(d.headline||'')+'</b><p>'+esc(d.summary||'')+'</p></div></div>';
+    (d.dimensions||[]).forEach(function(x){
+      var n=Math.max(0,Math.min(100,Number(x.score)||0));
+      h+='<div class="dim"><div class="row"><b>'+esc(x.name)+'</b><em>'+n+'</em></div>'
+        +'<div class="meter"><i class="'+cls(n)+'" style="width:'+n+'%"></i></div><p>'+esc(x.evidence||'')+'</p></div>';
+    });
+    var S=d.strengths||[], G=d.gaps||[], Q=d.questions||[];
+    if(S.length||G.length){
+      h+='<div class="twocol" style="margin-top:18px"><div><h5>Strengths against this role</h5><ul>'
+        +S.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')
+        +'</ul></div><div><h5 class="warn">Gaps and unknowns</h5><ul class="gaps">'
+        +(G.length?G.map(function(s){return '<li>'+esc(s)+'</li>';}).join(''):'<li>None identified from the record.</li>')
+        +'</ul></div></div>';
+    }
+    if(Q.length) h+='<div class="qs"><h5>Worth asking in interview</h5><ul>'+Q.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul></div>';
+    h+='<p class="note">Generated from the verified record on this site. Scores are an assessment, not a measurement.</p>';
+    out.innerHTML=h;
+  }
+
+  go.addEventListener('click', function(){
+    if(!LIVE) return;
+    var text=(jd.value||'').trim();
+    if(text.length<40){ out.innerHTML='<p class="empty">That is too short to assess. Paste the role requirements, or load one of the examples.</p>'; return; }
+    go.disabled=true;
+    out.innerHTML='<p class="empty"><span class="spin"></span>Reading the role against the record</p>';
+    api('/fit',{jd:text}).then(function(d){ render(d); go.disabled=false; })
+      .catch(function(e){
+        out.innerHTML = '<p class="empty">'+(e.message==='rate'
+          ? 'Too many assessments right now. Give it a minute.'
+          : 'That could not be assessed just now. The full record is in the other tabs.')+'</p>';
+        go.disabled=false;
+      });
+  });
+})();
+
+/* ---------- ask ---------- */
+(function(){
+  var qEl=document.getElementById('q'), goEl=document.getElementById('go'),
+      ansEl=document.getElementById('ans'), noteEl=document.getElementById('note'),
+      chipsEl=document.getElementById('chips');
+
+  function setNote(m,w){ if(!m){noteEl.hidden=true;return;} noteEl.hidden=false; noteEl.textContent=m; noteEl.className='note'+(w?' warn':''); }
+
+  if(!LIVE){
+    ansEl.innerHTML = OFFLINE_MSG;
+    goEl.disabled = true; qEl.disabled = true;
+    document.querySelectorAll('.chip').forEach(function(c){ c.disabled=true; c.style.opacity=.45; });
+  }
+
+  function ask(question){
+    if(!LIVE || !question.trim()) return;
+    goEl.disabled=true; setNote('');
+    ansEl.textContent='Reading the record';
+    api('/ask',{question:question}).then(function(d){
+      ansEl.textContent = d.text || 'No answer came back.';
+      goEl.disabled=false;
+    }).catch(function(e){
+      setNote(e.message==='rate' ? 'Too many questions right now. Give it a minute.'
+                                 : 'That one could not be answered. The written record still covers it.', true);
+      ansEl.textContent=''; goEl.disabled=false;
+    });
+  }
+  goEl.addEventListener('click', function(){ ask(qEl.value); });
+  qEl.addEventListener('keydown', function(e){ if(e.key==='Enter') ask(qEl.value); });
+  chipsEl.addEventListener('click', function(e){
+    var b=e.target.closest('.chip'); if(!b) return;
+    qEl.value=b.textContent.trim(); ask(qEl.value);
+  });
+})();
+</script>
+</body>
+</html>
