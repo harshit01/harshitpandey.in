@@ -28,9 +28,9 @@ const ALLOWED_ORIGINS = [
 // Keep this in step with the site.
 const RECORD = `
 HARSHIT PANDEY, verified professional record. Bengaluru, India. hprishu@gmail.com, +91 98866 77953.
-RECORD CURRENT AS OF 18 September 2026. Every duration here, including the 11.1 years and the Bazaarvoice tenure, is measured to that date. If the reader's today is materially later, say the figures are as of that date rather than silently restating them as current.
 11.1 years continuous Salesforce experience since August 2015, with no employment gaps: he left Prodapt on 18 August 2025 and started at Bazaarvoice on 19 August 2025, the very next day.
 Languages: English C2, Hindi C2, Spanish A1. Open to Salesforce Technical Architect, Technical Lead, Engineering Manager and Salesforce AI roles.
+LOCATION AND RELOCATION: he is based in Bengaluru and is actively looking to leave India. Preferred destinations are the UAE, Singapore, Malaysia and Europe. He is an Indian national and will require employer sponsored work authorisation in every one of those markets; say so plainly if asked rather than leaving it implied, because a recruiter who discovers it late has wasted their time and his. He has relocated for work before and delivered onsite for long periods: 21 months in Panama City for Liberty Latin America, and a month in Brazil leading a production deployment for PwC, so this is a repeat of something he has already done rather than a first move.
 
 ROLE 1: Bazaarvoice, Bengaluru. His official job title is Salesforce Administrator (BTO India, CRM). Joined 19 August 2025, still there. The work below is architect scope: he is the design authority for the platform's AI and release infrastructure. If asked about seniority, say exactly that, the title is Administrator and the scope is architect. Never upgrade the stated title.
 
