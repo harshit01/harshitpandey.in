@@ -18,14 +18,17 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 :root{
-  /* Light. Colour is spent sparingly: petrol for structure and the
-     active state, terracotta for one accent, everything else is ink. */
-  --deep:#F8FAF9;--deep-2:#FFFFFF;--deep-3:#EFF4F2;
-  --line:#E4EBE9;--line-2:#CBD8D5;
-  --mint:#0E6A5D;--mint-dim:#63807C;
-  --ember:#B2542C;--gold:#8A6A1C;
-  --ink:#1A2523;--ink-2:#44504E;--ink-3:#73837F;
-  --ink-strong:#0A1513;--on-accent:#FFFFFF;
+  /* Light, but an instrument panel rather than paper: a tinted ground,
+     white surfaces floating on it, hard ink, one electric accent. */
+  --ground:#E7EDEB;--deep:#E7EDEB;
+  --surface:#FFFFFF;--deep-2:#FFFFFF;--deep-3:#F2F7F5;
+  --line:#D2DCD9;--line-2:#BCCBC7;
+  --grid:rgba(11,22,20,.055);
+  --electric:#0FB5A0;--accent:#07574C;
+  --mint:#07574C;--mint-dim:#4E6663;
+  --ember:#C2481C;--gold:#8A6A1C;
+  --ink:#0B1614;--ink-2:#2C3B39;--ink-3:#5A6E6B;
+  --ink-strong:#050E0D;--on-accent:#FFFFFF;
   --f-d:"Archivo","Helvetica Neue",Arial,sans-serif;
   --f-b:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-m:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
@@ -219,6 +222,79 @@ img{max-width:100%}
 footer{border-top:1px solid var(--line);padding:18px clamp(16px,3.4vw,44px);font-family:var(--f-m);font-size:11px;color:var(--ink-3);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer a{color:var(--ink-3);text-decoration:none}
 footer a:hover{color:var(--mint)}
+
+/* ============ instrument-panel refinements ============ */
+body{
+  font-size:15.5px;color:var(--ink);
+  background-color:var(--ground);
+  background-image:
+    radial-gradient(900px 430px at 82% -12%, rgba(15,181,160,.16), rgba(15,181,160,0) 62%),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:auto, 34px 34px, 34px 34px;
+  background-attachment:fixed, scroll, scroll;
+}
+.topbar{background:rgba(231,237,235,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line-2)}
+.mark{background:linear-gradient(135deg,var(--electric),var(--accent));color:#fff;box-shadow:0 2px 10px -3px rgba(15,181,160,.6)}
+.who span{color:var(--ink-3)}
+.status{border-color:var(--line-2);color:var(--accent);background:var(--surface)}
+.dot{background:var(--electric);box-shadow:0 0 0 3px rgba(15,181,160,.22)}
+
+.rail{border-right:1px solid var(--line-2)}
+.rail button{color:var(--ink-3)}
+.rail button:hover{color:var(--ink)}
+.rail button[aria-selected="true"]{
+  background:var(--surface);color:var(--accent);border-left-color:var(--electric);
+  box-shadow:0 1px 2px rgba(11,22,20,.05);
+}
+
+.phead h2{color:var(--ink-strong)}
+.phead .bar{height:3px;width:64px;background:linear-gradient(90deg,var(--electric),var(--accent))}
+.phead p{color:var(--ink-2)}
+.eyebrow{color:var(--accent)}
+
+.pitch{color:var(--ink)}
+.band{border-top:2px solid var(--accent)}
+.band .n{color:var(--ink-strong)}
+.band .s{color:var(--ink-3)}
+
+.card,.sys,.inputbox,.result,.offline{
+  background:var(--surface);border-color:var(--line);
+  box-shadow:0 1px 2px rgba(11,22,20,.04), 0 14px 34px -26px rgba(11,22,20,.45);
+}
+.card p,.sys .body p,.sys .body li,.rmain li,.matrix li,.twocol li,.qs li,.dim p{color:var(--ink-2)}
+.inputbox .hd,.result .hd{background:var(--deep-3);color:var(--accent);border-bottom:1px solid var(--line)}
+#jd,#q{background:var(--deep-3);border-color:var(--line-2);color:var(--ink)}
+#jd:focus,#q:focus{border-color:var(--electric);box-shadow:0 0 0 3px rgba(15,181,160,.16)}
+.btn{background:linear-gradient(135deg,var(--electric),var(--accent));border-color:transparent;color:#fff;box-shadow:0 3px 14px -6px rgba(15,181,160,.75)}
+.btn:hover{filter:brightness(1.07)}
+.btn.ghost{background:var(--surface);color:var(--ink-2);border-color:var(--line-2);box-shadow:none}
+.btn.ghost:hover{color:var(--accent);border-color:var(--electric);filter:none}
+.chip,.samples button{background:var(--surface);border-color:var(--line-2);color:var(--ink-2)}
+.chip:hover,.samples button:hover{border-color:var(--electric);color:var(--accent);box-shadow:0 0 0 3px rgba(15,181,160,.13)}
+
+.meter{background:var(--line)}
+.meter i{background:linear-gradient(90deg,var(--electric),var(--accent))}
+.score{border-color:var(--electric);background:var(--surface);box-shadow:0 0 0 4px rgba(15,181,160,.12)}
+.score span{color:var(--accent)}
+.dim{border-top-color:var(--line)}
+.dim .row b,.vtext b,.card h4,.sys h4,.rmain h3{color:var(--ink-strong)}
+
+.sys > button:hover{background:var(--deep-3)}
+.sys .body{border-top-color:var(--line)}
+.kv span{border-color:var(--line-2);color:var(--accent);background:var(--deep-3)}
+.rmain{border-left-color:var(--line-2)}
+.when .yr{color:var(--accent)}
+.matrix h4{color:var(--ink-strong)}
+.matrix ul{border-top-color:var(--accent)}
+.matrix li{border-bottom-color:var(--line)}
+.certs span{background:var(--surface);border-left-color:var(--electric);box-shadow:0 1px 2px rgba(11,22,20,.04)}
+.certs span.aic{border-left-color:var(--ember)}
+.answer{background:var(--surface);border-left-color:var(--electric);color:var(--ink-2);box-shadow:0 1px 2px rgba(11,22,20,.04)}
+.figcap{border-bottom-color:var(--line-2);color:var(--accent)}
+.endnote{border-top-color:var(--line-2);color:var(--ink-3)}
+.endnote b{color:var(--ink-2)}
+footer{border-top-color:var(--line-2);color:var(--ink-3);background:rgba(255,255,255,.5)}
 </style>
 </head>
 <body>
@@ -477,7 +553,7 @@ footer a:hover{color:var(--mint)}
 
     <div class="figwrap">
       <div class="figcap"><span>Fig. 1 / Integration surface, 2015 to 2026</span><i>Systems made to talk to Salesforce</i></div>
-      <div class="figscroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="IBM Plex Mono, monospace"><path d="M250 118 H300 V235 H340" fill="none" stroke="#C4D3D0" stroke-width="1.8"/><path d="M250 196 H300 V235 H340" fill="none" stroke="#C4D3D0" stroke-width="1.8"/><path d="M250 274 H300 V235 H340" fill="none" stroke="#C4D3D0" stroke-width="1.8"/><path d="M250 352 H300 V235 H340" fill="none" stroke="#C4D3D0" stroke-width="1.8"/><path d="M460 235 H520 V107 H566" fill="none" stroke="#B2542C" stroke-width="2" opacity=".75"/><path d="M460 235 H520 V242 H566" fill="none" stroke="#8A6A1C" stroke-width="2" opacity=".75"/><path d="M460 235 H520 V377 H566" fill="none" stroke="#6E8480" stroke-width="2" opacity=".75"/><text x="24" y="52" font-size="15" font-weight="600" fill="#0E6A5D" letter-spacing="2">PLATFORM LAYER</text><rect x="24" y="90" width="226" height="56" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.6"/><rect x="24" y="90" width="5" height="56" fill="#0E6A5D"/><text x="44" y="124" font-size="17" font-weight="500" fill="#152320">Vlocity / OmniStudio</text><rect x="24" y="168" width="226" height="56" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.6"/><rect x="24" y="168" width="5" height="56" fill="#0E6A5D"/><text x="44" y="202" font-size="17" font-weight="500" fill="#152320">Apttus CLM</text><rect x="24" y="246" width="226" height="56" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.6"/><rect x="24" y="246" width="5" height="56" fill="#0E6A5D"/><text x="44" y="280" font-size="17" font-weight="500" fill="#152320">Conga CLM</text><rect x="24" y="324" width="226" height="56" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.6"/><rect x="24" y="324" width="5" height="56" fill="#0E6A5D"/><text x="44" y="358" font-size="17" font-weight="500" fill="#152320">Salesforce CPQ</text><circle cx="400" cy="235" r="60" fill="#0E6A5D"/><text x="400" y="230" font-size="24" font-weight="600" fill="#FFFFFF" text-anchor="middle">SFDC</text><text x="400" y="253" font-size="12" fill="#A9D5CD" text-anchor="middle" letter-spacing="1.5" opacity=".8">CORE</text><text x="566" y="26" font-size="15" font-weight="600" fill="#0E6A5D" letter-spacing="2">EXTERNAL SYSTEMS</text><rect x="566" y="50" width="410" height="115" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.2"/><rect x="566" y="50" width="410" height="4" fill="#B2542C"/><text x="586" y="76" font-size="13" font-weight="600" fill="#B2542C" letter-spacing="1.4">TELECOM / OSS-BSS</text><circle cx="589" cy="103" r="3.4" fill="#B2542C"/><text x="602" y="108" font-size="16" fill="#152320">ESB</text><circle cx="789" cy="103" r="3.4" fill="#B2542C"/><text x="802" y="108" font-size="16" fill="#152320">NOKIA</text><circle cx="589" cy="127" r="3.4" fill="#B2542C"/><text x="602" y="132" font-size="16" fill="#152320">Matrixx</text><circle cx="789" cy="127" r="3.4" fill="#B2542C"/><text x="802" y="132" font-size="16" fill="#152320">B2BSoft</text><circle cx="589" cy="151" r="3.4" fill="#B2542C"/><text x="602" y="156" font-size="16" fill="#152320">Asurion</text><rect x="566" y="195" width="410" height="95" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.2"/><rect x="566" y="195" width="410" height="4" fill="#8A6A1C"/><text x="586" y="221" font-size="13" font-weight="600" fill="#8A6A1C" letter-spacing="1.4">BILLING, FINANCE, IDENTITY</text><circle cx="589" cy="248" r="3.4" fill="#8A6A1C"/><text x="602" y="253" font-size="16" fill="#152320">SAP</text><circle cx="789" cy="248" r="3.4" fill="#8A6A1C"/><text x="802" y="253" font-size="16" fill="#152320">ARIA</text><circle cx="589" cy="272" r="3.4" fill="#8A6A1C"/><text x="602" y="277" font-size="16" fill="#152320">Braintree</text><circle cx="789" cy="272" r="3.4" fill="#8A6A1C"/><text x="802" y="277" font-size="16" fill="#152320">TransUnion</text><rect x="566" y="320" width="410" height="115" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.2"/><rect x="566" y="320" width="410" height="4" fill="#6E8480"/><text x="586" y="346" font-size="13" font-weight="600" fill="#6E8480" letter-spacing="1.4">DEVOPS / DOCUMENT</text><circle cx="589" cy="373" r="3.4" fill="#6E8480"/><text x="602" y="378" font-size="16" fill="#152320">GitHub</text><circle cx="789" cy="373" r="3.4" fill="#6E8480"/><text x="802" y="378" font-size="16" fill="#152320">Jira</text><circle cx="589" cy="397" r="3.4" fill="#6E8480"/><text x="602" y="402" font-size="16" fill="#152320">Copado</text><circle cx="789" cy="397" r="3.4" fill="#6E8480"/><text x="802" y="402" font-size="16" fill="#152320">Bitbucket</text><circle cx="589" cy="421" r="3.4" fill="#6E8480"/><text x="602" y="426" font-size="16" fill="#152320">DocuSign</text><circle cx="789" cy="421" r="3.4" fill="#6E8480"/><text x="802" y="426" font-size="16" fill="#152320">Heroku</text></svg></div>
+      <div class="figscroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="IBM Plex Mono, monospace"><path d="M250 118 H300 V235 H340" fill="none" stroke="#BCCBC7" stroke-width="1.8"/><path d="M250 196 H300 V235 H340" fill="none" stroke="#BCCBC7" stroke-width="1.8"/><path d="M250 274 H300 V235 H340" fill="none" stroke="#BCCBC7" stroke-width="1.8"/><path d="M250 352 H300 V235 H340" fill="none" stroke="#BCCBC7" stroke-width="1.8"/><path d="M460 235 H520 V107 H566" fill="none" stroke="#C2481C" stroke-width="2" opacity=".75"/><path d="M460 235 H520 V242 H566" fill="none" stroke="#8A6A1C" stroke-width="2" opacity=".75"/><path d="M460 235 H520 V377 H566" fill="none" stroke="#4E6663" stroke-width="2" opacity=".75"/><text x="24" y="52" font-size="15" font-weight="600" fill="#07574C" letter-spacing="2">PLATFORM LAYER</text><rect x="24" y="90" width="226" height="56" fill="#FFFFFF" stroke="#D2DCD9" stroke-width="1.6"/><rect x="24" y="90" width="5" height="56" fill="#07574C"/><text x="44" y="124" font-size="17" font-weight="500" fill="#0B1614">Vlocity / OmniStudio</text><rect x="24" y="168" width="226" height="56" fill="#FFFFFF" stroke="#D2DCD9" stroke-width="1.6"/><rect x="24" y="168" width="5" height="56" fill="#07574C"/><text x="44" y="202" font-size="17" font-weight="500" fill="#0B1614">Apttus CLM</text><rect x="24" y="246" width="226" height="56" fill="#FFFFFF" stroke="#D2DCD9" stroke-width="1.6"/><rect x="24" y="246" width="5" height="56" fill="#07574C"/><text x="44" y="280" font-size="17" font-weight="500" fill="#0B1614">Conga CLM</text><rect x="24" y="324" width="226" height="56" fill="#FFFFFF" stroke="#D2DCD9" stroke-width="1.6"/><rect x="24" y="324" width="5" height="56" fill="#07574C"/><text x="44" y="358" font-size="17" font-weight="500" fill="#0B1614">Salesforce CPQ</text><circle cx="400" cy="235" r="60" fill="#07574C"/><text x="400" y="230" font-size="24" font-weight="600" fill="#FFFFFF" text-anchor="middle">SFDC</text><text x="400" y="253" font-size="12" fill="#8FD9CE" text-anchor="middle" letter-spacing="1.5" opacity=".8">CORE</text><text x="566" y="26" font-size="15" font-weight="600" fill="#07574C" letter-spacing="2">EXTERNAL SYSTEMS</text><rect x="566" y="50" width="410" height="115" fill="#FFFFFF" stroke="#D2DCD9" stroke-width="1.2"/><rect x="566" y="50" width="410" height="4" fill="#C2481C"/><text x="586" y="76" font-size="13" font-weight="600" fill="#C2481C" letter-spacing="1.4">TELECOM / OSS-BSS</text><circle cx="589" cy="103" r="3.4" fill="#C2481C"/><text x="602" y="108" font-size="16" fill="#0B1614">ESB</text><circle cx="789" cy="103" r="3.4" fill="#C2481C"/><text x="802" y="108" font-size="16" fill="#0B1614">NOKIA</text><circle cx="589" cy="127" r="3.4" fill="#C2481C"/><text x="602" y="132" font-size="16" fill="#0B1614">Matrixx</text><circle cx="789" cy="127" r="3.4" fill="#C2481C"/><text x="802" y="132" font-size="16" fill="#0B1614">B2BSoft</text><circle cx="589" cy="151" r="3.4" fill="#C2481C"/><text x="602" y="156" font-size="16" fill="#0B1614">Asurion</text><rect x="566" y="195" width="410" height="95" fill="#FFFFFF" stroke="#D2DCD9" stroke-width="1.2"/><rect x="566" y="195" width="410" height="4" fill="#8A6A1C"/><text x="586" y="221" font-size="13" font-weight="600" fill="#8A6A1C" letter-spacing="1.4">BILLING, FINANCE, IDENTITY</text><circle cx="589" cy="248" r="3.4" fill="#8A6A1C"/><text x="602" y="253" font-size="16" fill="#0B1614">SAP</text><circle cx="789" cy="248" r="3.4" fill="#8A6A1C"/><text x="802" y="253" font-size="16" fill="#0B1614">ARIA</text><circle cx="589" cy="272" r="3.4" fill="#8A6A1C"/><text x="602" y="277" font-size="16" fill="#0B1614">Braintree</text><circle cx="789" cy="272" r="3.4" fill="#8A6A1C"/><text x="802" y="277" font-size="16" fill="#0B1614">TransUnion</text><rect x="566" y="320" width="410" height="115" fill="#FFFFFF" stroke="#D2DCD9" stroke-width="1.2"/><rect x="566" y="320" width="410" height="4" fill="#4E6663"/><text x="586" y="346" font-size="13" font-weight="600" fill="#4E6663" letter-spacing="1.4">DEVOPS / DOCUMENT</text><circle cx="589" cy="373" r="3.4" fill="#4E6663"/><text x="602" y="378" font-size="16" fill="#0B1614">GitHub</text><circle cx="789" cy="373" r="3.4" fill="#4E6663"/><text x="802" y="378" font-size="16" fill="#0B1614">Jira</text><circle cx="589" cy="397" r="3.4" fill="#4E6663"/><text x="602" y="402" font-size="16" fill="#0B1614">Copado</text><circle cx="789" cy="397" r="3.4" fill="#4E6663"/><text x="802" y="402" font-size="16" fill="#0B1614">Bitbucket</text><circle cx="589" cy="421" r="3.4" fill="#4E6663"/><text x="602" y="426" font-size="16" fill="#0B1614">DocuSign</text><circle cx="789" cy="421" r="3.4" fill="#4E6663"/><text x="802" y="426" font-size="16" fill="#0B1614">Heroku</text></svg></div>
     </div>
   </section>
 
