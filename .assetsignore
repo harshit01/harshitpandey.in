@@ -1,0 +1,6 @@
+# The site Worker serves this repo root as static assets. Anything listed
+# here is kept in the repo but never published, so the API source and the
+# CI config do not end up readable at harshitpandey.in/api/src/index.js
+api/
+.github/
+README.md

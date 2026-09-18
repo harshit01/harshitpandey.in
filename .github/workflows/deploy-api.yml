@@ -1,0 +1,54 @@
+name: Deploy profile API
+
+# The site deploys itself through Cloudflare's git integration. The Worker
+# does not, so it deploys here instead. Only runs when the API changes, so
+# ordinary site edits cost nothing.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'api/**'
+      - '.github/workflows/deploy-api.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check credentials
+        id: creds
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "::notice::No CLOUDFLARE_API_TOKEN secret yet. Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID under Settings > Secrets and variables > Actions, then re-run this workflow. Skipping deploy."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy worker
+        if: steps.creds.outputs.ready == 'true'
+        working-directory: api
+        run: npx --yes wrangler@4 deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Smoke test
+        if: steps.creds.outputs.ready == 'true'
+        run: |
+          # a foreign origin must be refused; this proves the deploy is live
+          # and that the origin allowlist survived it
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST \
+            -H 'Content-Type: application/json' \
+            -H 'Origin: https://not-allowed.example' \
+            -d '{"question":"ping"}' \
+            https://profile-api.hprishu.workers.dev/ask)
+          echo "foreign origin returned $code"
+          test "$code" = "403"

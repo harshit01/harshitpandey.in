@@ -63,44 +63,41 @@ less work and gives you the better result.
 
 ---
 
-## 3. Optional: switch the AI panels on
+## 3. The API
 
-Until you do, Role fit and Ask show an honest "not switched on yet" panel and
-point the reader at the written record. Nothing looks broken.
+The two AI panels are served by a Cloudflare Worker, `profile-api`, whose
+source is `api/src/index.js`. It holds the Anthropic key server side, only
+accepts requests from this site's own origins, and rate limits per IP and
+globally.
 
-**Why a Worker at all:** an Anthropic API key in the page is a key anyone can
-read and spend. It has to sit on a server. This one is about 40 lines.
+It deploys itself from this repo. Push a change under `api/` and the
+workflow in `.github/workflows/deploy-api.yml` runs `wrangler deploy`.
+No dashboard pasting.
 
-```bash
-npm create cloudflare@latest profile-api -- --type=hello-world
-cd profile-api
-# replace src/index.js with worker.js from this repo
-npx wrangler secret put ANTHROPIC_API_KEY     # paste your key when prompted
-npx wrangler deploy
-```
+### One time setup
 
-Then in `index.html` set the URL it gives you:
+1. Cloudflare, **My Profile**, **API Tokens**, **Create Token**, use the
+   **Edit Cloudflare Workers** template. Copy the token.
+2. GitHub repo, **Settings**, **Secrets and variables**, **Actions**, add:
+   - `CLOUDFLARE_API_TOKEN` — the token from step 1
+   - `CLOUDFLARE_ACCOUNT_ID` — the id in your dashboard URL, the hex string
+     right after `dash.cloudflare.com/`
+3. Push anything under `api/`. Watch it in the **Actions** tab.
 
-```js
-var API_BASE = "https://profile-api.yourname.workers.dev";
-```
+`ANTHROPIC_API_KEY` stays a Worker secret and is never in this repo.
+`wrangler deploy` does not touch existing secrets, so it survives.
 
-Commit and push. Pages redeploys on its own.
+The workflow ends with a smoke test: it calls the API from a origin that is
+not on the allowlist and fails the build unless it gets a 403 back. A deploy
+that broke the origin check would go red rather than ship quietly.
 
-`ALLOWED_ORIGINS` in `worker.js` is already set to `harshitpandey.in`. Leave
-it that way: without it, anyone can point their own page at your Worker and
-spend your credits.
+### Keeping the bill small
 
-### Keep the bill small
-
-- Worker free tier covers 100,000 requests a day. You will not get near it.
-- The Anthropic cost is per call, small but not zero and not capped by default.
-- Add a **Rate limiting rule** in Cloudflare on the Worker route, around
-  10 requests per minute per IP. Five minutes of work, and it is what stops
-  one bored person draining your credit.
-- Set a **spend limit** in the Anthropic console as a hard backstop.
-
----
+- Worker free tier covers 100,000 requests a day.
+- The Worker rate limits itself: 8 requests per IP per minute, 60 per minute
+  overall. In memory, so per isolate; add a WAF rate limiting rule on the
+  route for a hard global guarantee.
+- Set a **spend limit** in the Anthropic console as a backstop.
 
 ## 4. Keeping it current
 

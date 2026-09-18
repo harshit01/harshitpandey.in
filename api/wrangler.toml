@@ -1,0 +1,16 @@
+# Deploy config for the profile API.
+#
+# The name must stay exactly "profile-api": wrangler updates the Worker
+# that already carries that name, rather than creating a second one.
+#
+# ANTHROPIC_API_KEY is a secret set on the Worker itself. `wrangler deploy`
+# does not touch existing secrets, so it survives every deploy from here.
+# It is never in this repo.
+
+name = "profile-api"
+main = "src/index.js"
+compatibility_date = "2026-09-18"
+workers_dev = true
+
+[observability]
+enabled = true
