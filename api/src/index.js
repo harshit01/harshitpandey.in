@@ -28,6 +28,7 @@ const ALLOWED_ORIGINS = [
 // Keep this in step with the site.
 const RECORD = `
 HARSHIT PANDEY, verified professional record. Bengaluru, India. hprishu@gmail.com, +91 98866 77953.
+RECORD CURRENT AS OF 18 September 2026. Every duration here, including the 11.1 years and the Bazaarvoice tenure, is measured to that date. If the reader's today is materially later, say the figures are as of that date rather than silently restating them as current.
 11.1 years continuous Salesforce experience since August 2015, with no employment gaps: he left Prodapt on 18 August 2025 and started at Bazaarvoice on 19 August 2025, the very next day.
 Languages: English C2, Hindi C2, Spanish A1. Open to Salesforce Technical Architect, Technical Lead, Engineering Manager and Salesforce AI roles.
 
