@@ -18,11 +18,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 :root{
-  --deep:#06312C;--deep-2:#0A3A34;--deep-3:#0E463F;
-  --line:#1E5B53;--line-2:#2A6A62;
-  --mint:#6FD9C4;--mint-dim:#3FA894;
-  --ember:#FF8A5C;--gold:#F0C05A;
-  --ink:#EAF4F1;--ink-2:#BBD8D2;--ink-3:#7FA8A3;
+  /* Light. Colour is spent sparingly: petrol for structure and the
+     active state, terracotta for one accent, everything else is ink. */
+  --deep:#F8FAF9;--deep-2:#FFFFFF;--deep-3:#EFF4F2;
+  --line:#E4EBE9;--line-2:#CBD8D5;
+  --mint:#0E6A5D;--mint-dim:#63807C;
+  --ember:#B2542C;--gold:#8A6A1C;
+  --ink:#1A2523;--ink-2:#44504E;--ink-3:#73837F;
+  --ink-strong:#0A1513;--on-accent:#FFFFFF;
   --f-d:"Archivo","Helvetica Neue",Arial,sans-serif;
   --f-b:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-m:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
@@ -32,7 +35,7 @@
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--deep);color:var(--ink);font-family:var(--f-b);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
-::selection{background:var(--mint);color:var(--deep)}
+::selection{background:var(--mint);color:var(--on-accent)}
 a{color:var(--mint)}
 :focus-visible{outline:2px solid var(--ember);outline-offset:2px}
 h1,h2,h3,h4,h5{margin:0}
@@ -40,15 +43,15 @@ p{margin:0}
 img{max-width:100%}
 
 .topbar{position:sticky;top:0;z-index:20;background:var(--deep);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:12px clamp(14px,3vw,26px);flex-wrap:wrap}
-.mark{font-family:var(--f-d);font-weight:900;font-size:15px;letter-spacing:-.04em;background:var(--mint);color:var(--deep);padding:5px 8px;flex:none}
+.mark{font-family:var(--f-d);font-weight:900;font-size:15px;letter-spacing:-.04em;background:var(--mint);color:var(--on-accent);padding:5px 8px;flex:none}
 .who b{font-family:var(--f-d);font-weight:800;font-size:16px;letter-spacing:-.02em;display:block;line-height:1.15}
 .who span{font-family:var(--f-m);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mint-dim)}
 .topbar .sp{margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .status{display:inline-flex;align-items:center;gap:7px;font-family:var(--f-m);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mint);border:1px solid var(--line-2);padding:5px 10px}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--mint);flex:none}
 @media (prefers-reduced-motion:no-preference){.dot{animation:blip 2.4s ease-in-out infinite}@keyframes blip{0%,100%{opacity:1}50%{opacity:.2}}}
-.cv{font-family:var(--f-m);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;background:var(--mint);color:var(--deep);text-decoration:none;padding:8px 14px}
-.cv:hover{background:#8AE6D3}
+.cv{font-family:var(--f-m);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;background:var(--mint);color:var(--on-accent);text-decoration:none;padding:8px 14px}
+.cv:hover{background:#0B564B}
 .topbar a.mail{font-family:var(--f-m);font-size:12.5px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line-2)}
 .topbar a.mail:hover{color:var(--ember);border-color:var(--ember)}
 @media (max-width:620px){.topbar a.mail{display:none}}
@@ -67,20 +70,26 @@ img{max-width:100%}
 .panel{padding:clamp(20px,3.4vw,40px) clamp(16px,3.4vw,44px) 80px;max-width:1180px}
 .panel[hidden]{display:none}
 .phead{margin-bottom:26px}
-.phead h2{font-family:var(--f-d);font-weight:800;font-size:clamp(24px,3.2vw,34px);letter-spacing:-.033em;color:#fff;text-wrap:balance}
+.phead h2{font-family:var(--f-d);font-weight:800;font-size:clamp(24px,3.2vw,34px);letter-spacing:-.033em;color:var(--ink-strong);text-wrap:balance}
 .phead .bar{height:3px;width:56px;background:var(--ember);margin:10px 0}
 .phead p{color:var(--ink-3);font-size:14px;max-width:var(--measure)}
 .eyebrow{font-family:var(--f-m);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mint);margin-bottom:14px}
 
-.pitch{font-size:clamp(17px,2vw,21px);line-height:1.45;color:var(--ink-2);max-width:40ch;margin-bottom:28px}
-.pitch b{color:#fff;font-weight:600}
+.pitch{font-size:clamp(17px,2vw,21px);line-height:1.45;color:var(--ink);max-width:42ch;margin:0}
+.pitch b{color:var(--ink-strong);font-weight:600}
 .band{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:18px;border-top:2px solid var(--mint);padding-top:18px;margin-bottom:30px}
-.band .n{font-family:var(--f-d);font-weight:800;font-size:clamp(28px,3.6vw,40px);line-height:1;color:#fff;letter-spacing:-.035em;display:block;font-variant-numeric:tabular-nums}
+.band .n{font-family:var(--f-d);font-weight:800;font-size:clamp(28px,3.6vw,40px);line-height:1;color:var(--ink-strong);letter-spacing:-.035em;display:block;font-variant-numeric:tabular-nums}
 .band .k{font-family:var(--f-m);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ember);margin-top:9px;display:block}
 .band .s{font-size:12.5px;color:var(--ink-3);margin-top:4px;display:block;line-height:1.38}
+.intro{display:grid;grid-template-columns:minmax(0,1fr) 216px;gap:clamp(22px,4vw,54px);align-items:start;margin-bottom:30px}
+@media (max-width:760px){.intro{grid-template-columns:1fr;gap:22px}}
+.portrait{margin:0}
+.portrait img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center top;border:1px solid var(--line-2);background:var(--deep-3)}
+@media (max-width:760px){.portrait{max-width:190px}}
+.portrait figcaption{font-family:var(--f-m);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:9px;line-height:1.5}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
 .card{border:1px solid var(--line);background:var(--deep-2);padding:18px}
-.card h4{font-family:var(--f-d);font-weight:700;font-size:17px;color:#fff;letter-spacing:-.015em;margin-bottom:3px}
+.card h4{font-family:var(--f-d);font-weight:700;font-size:17px;color:var(--ink-strong);letter-spacing:-.015em;margin-bottom:3px}
 .card .tag{font-family:var(--f-m);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);display:block;margin-bottom:10px}
 .card p{font-size:13.5px;color:var(--ink-2);line-height:1.5}
 
@@ -95,8 +104,8 @@ img{max-width:100%}
 #jd::placeholder{color:var(--ink-3)}
 #jd:focus{outline:none;border-color:var(--mint)}
 .btnrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
-.btn{font-family:var(--f-m);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--mint);color:var(--deep);border:1px solid var(--mint);padding:11px 20px;cursor:pointer}
-.btn:hover{background:#8AE6D3}
+.btn{font-family:var(--f-m);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--mint);color:var(--on-accent);border:1px solid var(--mint);padding:11px 20px;cursor:pointer}
+.btn:hover{background:#0B564B}
 .btn[disabled]{opacity:.4;cursor:default}
 .btn.ghost{background:transparent;color:var(--ink-3);border-color:var(--line-2)}
 .btn.ghost:hover{color:var(--ink);border-color:var(--mint)}
@@ -106,16 +115,16 @@ img{max-width:100%}
 .empty{color:var(--ink-3);font-size:13.5px;line-height:1.55}
 .verdict{display:flex;gap:16px;align-items:flex-start;margin-bottom:18px;flex-wrap:wrap}
 .score{flex:none;width:76px;height:76px;border:2px solid var(--mint);display:flex;flex-direction:column;align-items:center;justify-content:center}
-.score b{font-family:var(--f-d);font-weight:800;font-size:26px;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.score b{font-family:var(--f-d);font-weight:800;font-size:26px;line-height:1;color:var(--ink-strong);font-variant-numeric:tabular-nums}
 .score span{font-family:var(--f-m);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--mint);margin-top:3px}
 .score.partial{border-color:var(--gold)}.score.partial span{color:var(--gold)}
 .score.weak{border-color:var(--ember)}.score.weak span{color:var(--ember)}
 .vtext{flex:1 1 220px;min-width:0}
-.vtext b{display:block;font-family:var(--f-d);font-weight:700;font-size:17px;color:#fff;line-height:1.3;margin-bottom:6px;letter-spacing:-.015em}
+.vtext b{display:block;font-family:var(--f-d);font-weight:700;font-size:17px;color:var(--ink-strong);line-height:1.3;margin-bottom:6px;letter-spacing:-.015em}
 .vtext p{font-size:13.5px;color:var(--ink-2);line-height:1.5}
 .dim{padding:10px 0;border-top:1px solid var(--line)}
 .dim .row{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
-.dim .row b{font-size:13.5px;color:#fff;font-weight:600}
+.dim .row b{font-size:13.5px;color:var(--ink-strong);font-weight:600}
 .dim .row em{font-family:var(--f-m);font-style:normal;font-size:11px;color:var(--mint);font-variant-numeric:tabular-nums}
 .meter{height:4px;background:var(--line);margin:7px 0;position:relative;overflow:hidden}
 .meter i{position:absolute;left:0;top:0;bottom:0;background:var(--mint);display:block}
@@ -140,12 +149,12 @@ img{max-width:100%}
 .offline{border:1px dashed var(--line-2);padding:16px;background:var(--deep-2)}
 .offline b.hd{display:block;font-family:var(--f-m);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .offline p{font-size:13.2px;color:var(--ink-2);line-height:1.55;max-width:var(--measure)}
-.offline p b{color:#fff;font-weight:600}
+.offline p b{color:var(--ink-strong);font-weight:600}
 
 .sys{border:1px solid var(--line);background:var(--deep-2);margin-bottom:14px}
 .sys > button{width:100%;text-align:left;background:none;border:0;cursor:pointer;color:inherit;padding:16px 18px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
 .sys > button:hover{background:var(--deep-3)}
-.sys h4{font-family:var(--f-d);font-weight:700;font-size:18px;color:#fff;letter-spacing:-.018em}
+.sys h4{font-family:var(--f-d);font-weight:700;font-size:18px;color:var(--ink-strong);letter-spacing:-.018em}
 .sys .tag{font-family:var(--f-m);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ember)}
 .sys .chev{margin-left:auto;font-family:var(--f-m);font-size:11px;color:var(--mint)}
 .sys .body{padding:0 18px 18px;border-top:1px solid var(--line)}
@@ -154,7 +163,7 @@ img{max-width:100%}
 .sys .body ul{margin:12px 0 0;padding:0;list-style:none;max-width:var(--measure)}
 .sys .body li{position:relative;padding-left:16px;font-size:13.2px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
 .sys .body li::before{content:"";position:absolute;left:0;top:.66em;width:9px;height:1px;background:var(--mint)}
-.sys .body li b{color:#fff;font-weight:600}
+.sys .body li b{color:var(--ink-strong);font-weight:600}
 .kv{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
 .kv span{font-family:var(--f-m);font-size:10.5px;color:var(--mint);border:1px solid var(--line-2);padding:3px 9px}
 
@@ -164,18 +173,18 @@ img{max-width:100%}
 @media (max-width:700px){.when{text-align:left;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}}
 .when .yr{font-family:var(--f-d);font-weight:800;font-size:26px;line-height:.95;color:var(--mint);letter-spacing:-.035em;display:block}
 .when .to{font-family:var(--f-m);font-size:11px;color:var(--ink-3);display:block;margin-top:5px}
-.when .tag{display:inline-block;margin-top:9px;background:var(--ember);color:var(--deep);font-family:var(--f-m);font-size:9px;font-weight:600;letter-spacing:.1em;padding:3px 6px}
+.when .tag{display:inline-block;margin-top:9px;background:var(--ember);color:var(--on-accent);font-family:var(--f-m);font-size:9px;font-weight:600;letter-spacing:.1em;padding:3px 6px}
 @media (max-width:700px){.when .to,.when .tag{margin-top:0}}
 .rmain{padding-left:24px;border-left:1px solid var(--line)}
 @media (max-width:700px){.rmain{padding-left:0;border-left:0}}
-.rmain h3{font-family:var(--f-d);font-weight:700;font-size:20px;color:#fff;letter-spacing:-.02em;margin-bottom:4px}
+.rmain h3{font-family:var(--f-d);font-weight:700;font-size:20px;color:var(--ink-strong);letter-spacing:-.02em;margin-bottom:4px}
 .rmain .org{font-size:14.5px;color:var(--ink-2);margin-bottom:3px}
 .rmain .org b{color:var(--mint);font-weight:600}
 .rmain .loc{font-family:var(--f-m);font-size:11px;color:var(--ink-3);margin-bottom:12px}
 .rmain ul{margin:0;padding:0;list-style:none;max-width:var(--measure)}
 .rmain li{position:relative;padding-left:17px;font-size:13.8px;color:var(--ink-2);line-height:1.5;margin-bottom:7px}
 .rmain li::before{content:"";position:absolute;left:0;top:.66em;width:9px;height:1px;background:var(--mint-dim)}
-.rmain li b{color:#fff;font-weight:600}
+.rmain li b{color:var(--ink-strong);font-weight:600}
 
 .matrix{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:22px}
 .matrix h4{font-family:var(--f-d);font-weight:700;font-size:16px;color:var(--mint);margin-bottom:2px}
@@ -193,7 +202,7 @@ img{max-width:100%}
 .certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:9px;margin-top:22px}
 .certs span{font-size:13.5px;color:var(--ink);background:var(--deep-2);border-left:3px solid var(--mint-dim);padding:10px 14px;display:flex;align-items:center;gap:10px}
 .certs span.aic{border-left-color:var(--ember);font-weight:600}
-.certs span i{font-family:var(--f-m);font-style:normal;font-size:9px;font-weight:600;letter-spacing:.06em;background:var(--ember);color:var(--deep);padding:2px 5px}
+.certs span i{font-family:var(--f-m);font-style:normal;font-size:9px;font-weight:600;letter-spacing:.06em;background:var(--ember);color:var(--on-accent);padding:2px 5px}
 
 .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
 .chip{font-family:var(--f-m);font-size:11.5px;color:var(--ink-2);background:var(--deep-2);border:1px solid var(--line-2);padding:8px 13px;cursor:pointer}
@@ -235,7 +244,13 @@ footer a:hover{color:var(--mint)}
 
   <main>
   <section class="panel" id="p-overview" role="tabpanel" aria-labelledby="t-overview">
-    <h1 class="pitch">Eleven years in Salesforce, the last two spent building the AI the platform did not ship with: <b>an agentic control plane over the org</b>, <b>autonomous Apex test generation</b> inside the Einstein trust boundary, and <b>an agent driven delivery pipeline</b> that carries a ticket from branch to deployment to written documentation.</h1>
+    <div class="intro"><h1 class="pitch">Eleven years in Salesforce, the last two spent building the AI the platform did not ship with: <b>an agentic control plane over the org</b>, <b>autonomous Apex test generation</b> inside the Einstein trust boundary, and <b>an agent driven delivery pipeline</b> that carries a ticket from branch to deployment to written documentation.</h1>
+      <figure class="portrait">
+        <img src="harshit.jpg" alt="Harshit Pandey" width="432" height="540"
+             onerror="this.closest('.portrait').remove()">
+        <figcaption>Harshit Pandey<br>Bengaluru, India</figcaption>
+      </figure>
+    </div>
 
     <div class="band">
       <div><span class="n">11.1</span><span class="k">Years Salesforce</span><span class="s">Continuous, since Aug 2015</span></div>
@@ -462,7 +477,7 @@ footer a:hover{color:var(--mint)}
 
     <div class="figwrap">
       <div class="figcap"><span>Fig. 1 / Integration surface, 2015 to 2026</span><i>Systems made to talk to Salesforce</i></div>
-      <div class="figscroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="IBM Plex Mono, monospace"><path d="M250 118 H300 V235 H340" fill="none" stroke="#2A6A62" stroke-width="1.8"/><path d="M250 196 H300 V235 H340" fill="none" stroke="#2A6A62" stroke-width="1.8"/><path d="M250 274 H300 V235 H340" fill="none" stroke="#2A6A62" stroke-width="1.8"/><path d="M250 352 H300 V235 H340" fill="none" stroke="#2A6A62" stroke-width="1.8"/><path d="M460 235 H520 V107 H566" fill="none" stroke="#FF8A5C" stroke-width="2" opacity=".75"/><path d="M460 235 H520 V242 H566" fill="none" stroke="#F0C05A" stroke-width="2" opacity=".75"/><path d="M460 235 H520 V377 H566" fill="none" stroke="#9DC3BE" stroke-width="2" opacity=".75"/><text x="24" y="52" font-size="15" font-weight="600" fill="#6FD9C4" letter-spacing="2">PLATFORM LAYER</text><rect x="24" y="90" width="226" height="56" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.6"/><rect x="24" y="90" width="5" height="56" fill="#6FD9C4"/><text x="44" y="124" font-size="17" font-weight="500" fill="#E6F2EF">Vlocity / OmniStudio</text><rect x="24" y="168" width="226" height="56" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.6"/><rect x="24" y="168" width="5" height="56" fill="#6FD9C4"/><text x="44" y="202" font-size="17" font-weight="500" fill="#E6F2EF">Apttus CLM</text><rect x="24" y="246" width="226" height="56" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.6"/><rect x="24" y="246" width="5" height="56" fill="#6FD9C4"/><text x="44" y="280" font-size="17" font-weight="500" fill="#E6F2EF">Conga CLM</text><rect x="24" y="324" width="226" height="56" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.6"/><rect x="24" y="324" width="5" height="56" fill="#6FD9C4"/><text x="44" y="358" font-size="17" font-weight="500" fill="#E6F2EF">Salesforce CPQ</text><circle cx="400" cy="235" r="60" fill="#6FD9C4"/><text x="400" y="230" font-size="24" font-weight="600" fill="#06312C" text-anchor="middle">SFDC</text><text x="400" y="253" font-size="12" fill="#06312C" text-anchor="middle" letter-spacing="1.5" opacity=".75">CORE</text><text x="566" y="26" font-size="15" font-weight="600" fill="#6FD9C4" letter-spacing="2">EXTERNAL SYSTEMS</text><rect x="566" y="50" width="410" height="115" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.2" opacity=".9"/><rect x="566" y="50" width="410" height="4" fill="#FF8A5C"/><text x="586" y="78" font-size="13" font-weight="600" fill="#FF8A5C" letter-spacing="1.4">TELECOM / OSS-BSS</text><circle cx="589" cy="103" r="3.4" fill="#FF8A5C"/><text x="602" y="108" font-size="16" fill="#E6F2EF">ESB</text><circle cx="789" cy="103" r="3.4" fill="#FF8A5C"/><text x="802" y="108" font-size="16" fill="#E6F2EF">NOKIA</text><circle cx="589" cy="127" r="3.4" fill="#FF8A5C"/><text x="602" y="132" font-size="16" fill="#E6F2EF">Matrixx</text><circle cx="789" cy="127" r="3.4" fill="#FF8A5C"/><text x="802" y="132" font-size="16" fill="#E6F2EF">B2BSoft</text><circle cx="589" cy="151" r="3.4" fill="#FF8A5C"/><text x="602" y="156" font-size="16" fill="#E6F2EF">Asurion</text><rect x="566" y="195" width="410" height="95" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.2" opacity=".9"/><rect x="566" y="195" width="410" height="4" fill="#F0C05A"/><text x="586" y="223" font-size="13" font-weight="600" fill="#F0C05A" letter-spacing="1.4">BILLING, FINANCE, IDENTITY</text><circle cx="589" cy="248" r="3.4" fill="#F0C05A"/><text x="602" y="253" font-size="16" fill="#E6F2EF">SAP</text><circle cx="789" cy="248" r="3.4" fill="#F0C05A"/><text x="802" y="253" font-size="16" fill="#E6F2EF">ARIA</text><circle cx="589" cy="272" r="3.4" fill="#F0C05A"/><text x="602" y="277" font-size="16" fill="#E6F2EF">Braintree</text><circle cx="789" cy="272" r="3.4" fill="#F0C05A"/><text x="802" y="277" font-size="16" fill="#E6F2EF">TransUnion</text><rect x="566" y="320" width="410" height="115" fill="#0B3A35" stroke="#2A6A62" stroke-width="1.2" opacity=".9"/><rect x="566" y="320" width="410" height="4" fill="#9DC3BE"/><text x="586" y="348" font-size="13" font-weight="600" fill="#9DC3BE" letter-spacing="1.4">DEVOPS / DOCUMENT</text><circle cx="589" cy="373" r="3.4" fill="#9DC3BE"/><text x="602" y="378" font-size="16" fill="#E6F2EF">GitHub</text><circle cx="789" cy="373" r="3.4" fill="#9DC3BE"/><text x="802" y="378" font-size="16" fill="#E6F2EF">Jira</text><circle cx="589" cy="397" r="3.4" fill="#9DC3BE"/><text x="602" y="402" font-size="16" fill="#E6F2EF">Copado</text><circle cx="789" cy="397" r="3.4" fill="#9DC3BE"/><text x="802" y="402" font-size="16" fill="#E6F2EF">Bitbucket</text><circle cx="589" cy="421" r="3.4" fill="#9DC3BE"/><text x="602" y="426" font-size="16" fill="#E6F2EF">DocuSign</text><circle cx="789" cy="421" r="3.4" fill="#9DC3BE"/><text x="802" y="426" font-size="16" fill="#E6F2EF">Heroku</text></svg></div>
+      <div class="figscroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="IBM Plex Mono, monospace"><path d="M250 118 H300 V235 H340" fill="none" stroke="#C4D3D0" stroke-width="1.8"/><path d="M250 196 H300 V235 H340" fill="none" stroke="#C4D3D0" stroke-width="1.8"/><path d="M250 274 H300 V235 H340" fill="none" stroke="#C4D3D0" stroke-width="1.8"/><path d="M250 352 H300 V235 H340" fill="none" stroke="#C4D3D0" stroke-width="1.8"/><path d="M460 235 H520 V107 H566" fill="none" stroke="#B2542C" stroke-width="2" opacity=".75"/><path d="M460 235 H520 V242 H566" fill="none" stroke="#8A6A1C" stroke-width="2" opacity=".75"/><path d="M460 235 H520 V377 H566" fill="none" stroke="#6E8480" stroke-width="2" opacity=".75"/><text x="24" y="52" font-size="15" font-weight="600" fill="#0E6A5D" letter-spacing="2">PLATFORM LAYER</text><rect x="24" y="90" width="226" height="56" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.6"/><rect x="24" y="90" width="5" height="56" fill="#0E6A5D"/><text x="44" y="124" font-size="17" font-weight="500" fill="#152320">Vlocity / OmniStudio</text><rect x="24" y="168" width="226" height="56" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.6"/><rect x="24" y="168" width="5" height="56" fill="#0E6A5D"/><text x="44" y="202" font-size="17" font-weight="500" fill="#152320">Apttus CLM</text><rect x="24" y="246" width="226" height="56" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.6"/><rect x="24" y="246" width="5" height="56" fill="#0E6A5D"/><text x="44" y="280" font-size="17" font-weight="500" fill="#152320">Conga CLM</text><rect x="24" y="324" width="226" height="56" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.6"/><rect x="24" y="324" width="5" height="56" fill="#0E6A5D"/><text x="44" y="358" font-size="17" font-weight="500" fill="#152320">Salesforce CPQ</text><circle cx="400" cy="235" r="60" fill="#0E6A5D"/><text x="400" y="230" font-size="24" font-weight="600" fill="#FFFFFF" text-anchor="middle">SFDC</text><text x="400" y="253" font-size="12" fill="#A9D5CD" text-anchor="middle" letter-spacing="1.5" opacity=".8">CORE</text><text x="566" y="26" font-size="15" font-weight="600" fill="#0E6A5D" letter-spacing="2">EXTERNAL SYSTEMS</text><rect x="566" y="50" width="410" height="115" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.2"/><rect x="566" y="50" width="410" height="4" fill="#B2542C"/><text x="586" y="76" font-size="13" font-weight="600" fill="#B2542C" letter-spacing="1.4">TELECOM / OSS-BSS</text><circle cx="589" cy="103" r="3.4" fill="#B2542C"/><text x="602" y="108" font-size="16" fill="#152320">ESB</text><circle cx="789" cy="103" r="3.4" fill="#B2542C"/><text x="802" y="108" font-size="16" fill="#152320">NOKIA</text><circle cx="589" cy="127" r="3.4" fill="#B2542C"/><text x="602" y="132" font-size="16" fill="#152320">Matrixx</text><circle cx="789" cy="127" r="3.4" fill="#B2542C"/><text x="802" y="132" font-size="16" fill="#152320">B2BSoft</text><circle cx="589" cy="151" r="3.4" fill="#B2542C"/><text x="602" y="156" font-size="16" fill="#152320">Asurion</text><rect x="566" y="195" width="410" height="95" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.2"/><rect x="566" y="195" width="410" height="4" fill="#8A6A1C"/><text x="586" y="221" font-size="13" font-weight="600" fill="#8A6A1C" letter-spacing="1.4">BILLING, FINANCE, IDENTITY</text><circle cx="589" cy="248" r="3.4" fill="#8A6A1C"/><text x="602" y="253" font-size="16" fill="#152320">SAP</text><circle cx="789" cy="248" r="3.4" fill="#8A6A1C"/><text x="802" y="253" font-size="16" fill="#152320">ARIA</text><circle cx="589" cy="272" r="3.4" fill="#8A6A1C"/><text x="602" y="277" font-size="16" fill="#152320">Braintree</text><circle cx="789" cy="272" r="3.4" fill="#8A6A1C"/><text x="802" y="277" font-size="16" fill="#152320">TransUnion</text><rect x="566" y="320" width="410" height="115" fill="#FFFFFF" stroke="#CBD8D5" stroke-width="1.2"/><rect x="566" y="320" width="410" height="4" fill="#6E8480"/><text x="586" y="346" font-size="13" font-weight="600" fill="#6E8480" letter-spacing="1.4">DEVOPS / DOCUMENT</text><circle cx="589" cy="373" r="3.4" fill="#6E8480"/><text x="602" y="378" font-size="16" fill="#152320">GitHub</text><circle cx="789" cy="373" r="3.4" fill="#6E8480"/><text x="802" y="378" font-size="16" fill="#152320">Jira</text><circle cx="589" cy="397" r="3.4" fill="#6E8480"/><text x="602" y="402" font-size="16" fill="#152320">Copado</text><circle cx="789" cy="397" r="3.4" fill="#6E8480"/><text x="802" y="402" font-size="16" fill="#152320">Bitbucket</text><circle cx="589" cy="421" r="3.4" fill="#6E8480"/><text x="602" y="426" font-size="16" fill="#152320">DocuSign</text><circle cx="789" cy="421" r="3.4" fill="#6E8480"/><text x="802" y="426" font-size="16" fill="#152320">Heroku</text></svg></div>
     </div>
   </section>
 
@@ -522,7 +537,7 @@ footer a:hover{color:var(--mint)}
    Deploy the Cloudflare Worker in worker.js, paste its URL here,
    redeploy, and Role fit and Ask come alive. Nothing else changes.
    ============================================================ */
-var API_BASE = "https://profile-api.hprishu.workers.dev";
+var API_BASE = "";   /* e.g. "https://profile-api.yourname.workers.dev" */
 
 var SAMPLE_JDS = {
  arch: "Salesforce Technical Architect\n\nWe are looking for a Technical Architect to own the architecture of our Salesforce platform across Sales and Service Cloud.\n\nRequirements:\n- 10+ years Salesforce, with deep Apex and Lightning Web Components\n- Proven integration architecture across enterprise systems (ERP, billing, identity)\n- Experience leading a large data migration onto Salesforce\n- CPQ and contract lifecycle management exposure\n- Ownership of release and deployment process, CI/CD\n- Able to lead engineers and work directly with client stakeholders",
