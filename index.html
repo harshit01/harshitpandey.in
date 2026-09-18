@@ -460,6 +460,7 @@ footer a:hover{color:var(--electric)}
           <li><b>Three deployment flows on one engine.</b> Staging, production and dev backup, each with server computed step gating so the UI reflects real release state rather than what the browser last believed.</li>
           <li><b>A component level copy pattern for production.</b> Merging whole branch histories diffed thousands of files. Instead each ticket's package.xml is resolved to specific file paths and only those components are copied into a working branch, so the pull request contains the actual change set and can be reviewed.</li>
           <li><b>Branch matching that survives a 2,600+ branch repository.</b> The fast path uses GitHub's matching refs API with case variant prefixes; the fallback is a normalised paginated scan that ignores case, separators, prefixes and suffixes, so arbitrary names still resolve.</li>
+          <li><b>Undocumented API behaviour.</b> Jira Cloud's pagination deviates from Atlassian's own documentation, so the client had to be written against observed behaviour rather than the spec. Metadata dependency resolution covers the child types that catch people out: validation rules, workflow rules, field updates, record types and list views.</li>
           <li><b>Contents API concurrency.</b> Every file write is its own commit and moves the branch head, so the SHA read for one file is stale for the next and GitHub returns 409. Solved with a refetch and retry loop, per callout timeouts, smaller batches to stay inside Apex callout limits, and Queueable chaining.</li>
           <li><b>Merge state correctness.</b> A true conflict and "already merged through another pull request" look alike and both stall a release. Reading changed files, commits and merged status off the pull request separated them, which stopped components being silently dropped from deploy previews.</li>
           <li><b>Governor and runtime hardening.</b> Regex string operations failed with "Regex too complicated" on large base64 payloads and were replaced with literal operations; GitHub Actions is pinned to Node 18 and a fixed Salesforce CLI version after Node 20 crashed it.</li>
@@ -475,7 +476,8 @@ footer a:hover{color:var(--electric)}
         <p>The applied end: getting generative features in front of support agents, then measuring whether they were actually worth the credits.</p>
         <ul>
           <li><b>Instrumented the Support AI platform.</b> Prompt metric tracking and agent feedback across Suggested Reply, Similar Cases and Internal Assistance, which previously had no visibility into whether agents found the output useful.</li>
-          <li><b>Agentforce case deflection</b> proof of concept, and grounded case comment generation through Prompt Builder on the case comment screen.</li>
+          <li><b>Agentforce case deflection</b> proof of concept, a screen flow calling Prompt Builder to draft grounded case comments from case context. <b>Demoed to Directors and the CIO</b>, and presented to a visiting US engineering team at a cross team showcase.</li>
+          <li><b>An Agentforce token consumption dashboard</b> giving leadership usage per action and projected monthly cost. It informed production cost governance, and it is the other half of the Flex Credit analysis: surface the cost, then explain the overage.</li>
           <li><b>A custom similar case matching engine</b>, combining SOSL candidate search, SOQL filtering and weighted multi field scoring, surfacing resolution patterns from historical cases rather than just near duplicates.</li>
           <li><b>Built on Flow orchestration, Prompt Builder templates and Invocable Apex</b> for context assembly, with a usage and feedback layer measuring whether reps actually adopted the suggestions.</li>
           <li><b>Agentforce Flex Credit overage root cause analysis and control playbook</b>, written as an internal leadership briefing: what was over, where the credits went, when, why, and the controls to stop it recurring.</li>
@@ -492,8 +494,8 @@ footer a:hover{color:var(--electric)}
     <div class="role">
       <div class="when"><span class="yr">2025</span><span class="to">to now</span><span class="tag">CURRENT</span></div>
       <div class="rmain">
-        <h3>Salesforce Administrator, CRM Platform and AI</h3>
-        <p class="org"><b>Bazaarvoice</b> / BTO India, CRM</p>
+        <h3>Salesforce Administrator, BizApps</h3>
+        <p class="org"><b>Bazaarvoice</b> / BTO India, CRM. Titled Administrator, working at architect scope.</p>
         <p class="loc">Bengaluru, India / Aug 2025 to Present</p>
         <ul>
           <li>Built <b>BV Cortex</b>, an agentic control plane over the Salesforce estate, and <b>AI Apex Test Autopilot</b>, autonomous Apex test generation inside the Einstein trust boundary.</li>
@@ -502,6 +504,7 @@ footer a:hover{color:var(--electric)}
           <li>Instrumented the <b>Support AI platform</b> and produced the <b>Agentforce credit governance</b> playbook for leadership.</li>
           <li>Owned the <b>DocuSign platform migration</b> against a hard vendor end of life: the legacy eSignature app and CPQ bridge stop working on 16 October 2026, and DocuSign's own migration tool cannot convert CPQ integrations. Rebuilt the send path on the Apex Toolkit, converted a backlog of <b>87,809 quote documents</b> on demand at send time, and cleared <b>ten defects</b>, several of which only became visible once the one before it was fixed.</li>
           <li>Diagnosed <b>revenue data integrity</b> across account hierarchies and service contracts, proving the Booked ARR calculation correct and finding the real cause rather than rewriting logic that already worked.</li>
+          <li>Refactored <b>Account trigger Apex dating back to 2013</b> that was causing cascading production issues and a steady stream of helpdesk tickets, moving it from single record processing to full bulkification, which cut both data load time and incident volume.</li>
           <li>Shipped across the platform: a <b>three tier SLA system</b> for Sales Qualified Tasks on Custom Metadata thresholds, a <b>Certinia PSA</b> scheduled hours fix root caused to org configuration and backfilled across roughly <b>300 records</b>, a data load tool that polls Jira and parses CSV and XLSX in Apex, and a <b>Playwright</b> regression suite covering a 21 step sales flow.</li>
           <li>Ran the Salesforce service queue alongside the build work, covering access governance, user lifecycle, CPQ quote and amendment defects, and Certinia PSA support.</li>
         </ul>
