@@ -439,30 +439,33 @@ footer a:hover{color:var(--electric)}
     <div class="sys">
       <button type="button" aria-expanded="false"><h4>AI Apex Test Autopilot</h4><span class="tag">Autonomous test generation</span><span class="chev">expand</span></button>
       <div class="body" hidden>
-        <p>Salesforce native autonomous Apex test generation, coverage measurement and failing test repair, built against an org of over 1,000 Apex classes carrying a backlog of failing test methods and classes with no test at all.</p>
+        <p>Salesforce native autonomous Apex test generation, coverage measurement and failing test repair, built against an org of over 1,000 Apex classes. Self initiated after org wide test coverage kept surfacing as an engineering gap.</p>
         <ul>
-          <li><b>Runs on the in platform Models API</b>, behind the Einstein Trust Layer. No external callout, no API keys, and no code leaves the Salesforce trust boundary.</li>
-          <li><b>Model agnostic through configuration.</b> The model name is config, so it can be repointed without a deploy.</li>
-          <li><b>Four modes:</b> generate a new test class, extend an existing one while preserving every method, repair to close a coverage gap, and fix a broken developer written test.</li>
+          <li><b>Runs on the in platform Models API</b>, behind the Einstein Trust Layer. No external callout, no API keys, and no code leaves the Salesforce trust boundary. The model name is configuration, so it repoints without a deploy.</li>
+          <li><b>A Queueable state machine.</b> Generate, compile, run, measure and repair are independent transactions, which is what lets the loop run at scale inside governor limits.</li>
+          <li><b>Salesforce's own coverage table was lying.</b> The aggregate reported zero percent for classes that were demonstrably covered, so coverage measurement was rebuilt from first principles rather than trusted.</li>
           <li><b>Every prompt carries hard rules that are scar tissue from observed failures.</b> The load bearing one: every method must contain a meaningful assertion. Without it a model writes a method that calls everything, asserts nothing, and reports full coverage.</li>
-          <li><b>Bulk and delta aware.</b> Rules force a 200 record scenario, because governor limits are where Salesforce code actually breaks, and delta based count assertions, because org automation creates extra records.</li>
+          <li><b>Safety controls in the dashboard</b> rather than in a runbook: a kill switch, a no progress guard and a regression guard, on an LWC that shows what the loop is doing.</li>
+          <li><b>Proven end to end.</b> Piloted against a 454 class and trigger inventory, it took a class from 0 to over 73 percent coverage with zero human written test code.</li>
         </ul>
-        <div class="kv"><span>Apex</span><span>Models API</span><span>Einstein Trust Layer</span><span>ApexCodeCoverage</span><span>Batchable</span></div>
+        <div class="kv"><span>Apex</span><span>Models API</span><span>Einstein Trust Layer</span><span>Queueable</span><span>ApexCodeCoverage</span><span>LWC</span></div>
       </div>
     </div>
 
     <div class="sys">
       <button type="button" aria-expanded="false"><h4>Agentic delivery pipeline</h4><span class="tag">Claude skills, end to end</span><span class="chev">expand</span></button>
       <div class="body" hidden>
-        <p>Authored skills that take a ticket the whole way through delivery, with the release tooling underneath built as a native Salesforce application.</p>
+        <p>Sole architect and developer of a 100 percent Salesforce native CI/CD application, plus the Claude skills that drive it. The full release lifecycle runs inside Salesforce: a Release Manager LWC walks each release through its steps while Apex services call GitHub and Jira Cloud through Named and External Credentials, dispatch GitHub Actions to run the metadata deployment, and poll for the result. No scripts, no leaving the platform, and no secrets in code.</p>
         <ul>
-          <li><b>The skills cover the full loop:</b> branch and pull request, validation and deployment, generated unit tests, the Confluence technical write up, and the Jira status update.</li>
-          <li><b>The tooling underneath is a native Salesforce CI/CD app</b> I built: a Lightning Web Component application unifying Salesforce, GitHub and Jira, replacing hand built package.xml files, CLI deploys and manual ticket updates.</li>
-          <li><b>An 8 step staging pipeline and a 9 step production pipeline</b>, the second adding a code review gate before validation. A ticket can sit in a staging and a production release at once, matching how work actually promotes.</li>
-          <li><b>Deployment through GitHub Actions</b> with automatic quick deploy fallback, real time progress polling, and capture of component counts, test results and error detail back onto the run record.</li>
-          <li><b>Path resolution across 40+ metadata types</b>, including child metadata, folder based bundles and the types with irregular naming that break naive implementations. Pipeline behaviour lives in Custom Metadata, so it retunes without a deploy.</li>
+          <li><b>Three deployment flows on one engine.</b> Staging, production and dev backup, each with server computed step gating so the UI reflects real release state rather than what the browser last believed.</li>
+          <li><b>A component level copy pattern for production.</b> Merging whole branch histories diffed thousands of files. Instead each ticket's package.xml is resolved to specific file paths and only those components are copied into a working branch, so the pull request contains the actual change set and can be reviewed.</li>
+          <li><b>Branch matching that survives a 2,600+ branch repository.</b> The fast path uses GitHub's matching refs API with case variant prefixes; the fallback is a normalised paginated scan that ignores case, separators, prefixes and suffixes, so arbitrary names still resolve.</li>
+          <li><b>Contents API concurrency.</b> Every file write is its own commit and moves the branch head, so the SHA read for one file is stale for the next and GitHub returns 409. Solved with a refetch and retry loop, per callout timeouts, smaller batches to stay inside Apex callout limits, and Queueable chaining.</li>
+          <li><b>Merge state correctness.</b> A true conflict and "already merged through another pull request" look alike and both stall a release. Reading changed files, commits and merged status off the pull request separated them, which stopped components being silently dropped from deploy previews.</li>
+          <li><b>Governor and runtime hardening.</b> Regex string operations failed with "Regex too complicated" on large base64 payloads and were replaced with literal operations; GitHub Actions is pinned to Node 18 and a fixed Salesforce CLI version after Node 20 crashed it.</li>
+          <li><b>Configuration driven throughout.</b> Branch names, ready statuses, endpoints and workflow routing live in Custom Metadata, nothing is hardcoded, and the app is built to be packaged and reused.</li>
         </ul>
-        <div class="kv"><span>Claude skills</span><span>LWC</span><span>GitHub Actions</span><span>Jira REST</span><span>Metadata API</span><span>Custom Metadata</span></div>
+        <div class="kv"><span>Apex</span><span>LWC</span><span>Queueable</span><span>GitHub REST</span><span>GitHub Actions</span><span>Jira Cloud REST</span><span>Named Credentials</span><span>Metadata API v66</span><span>Custom Metadata</span><span>Claude skills</span></div>
       </div>
     </div>
 
@@ -473,7 +476,8 @@ footer a:hover{color:var(--electric)}
         <ul>
           <li><b>Instrumented the Support AI platform.</b> Prompt metric tracking and agent feedback across Suggested Reply, Similar Cases and Internal Assistance, which previously had no visibility into whether agents found the output useful.</li>
           <li><b>Agentforce case deflection</b> proof of concept, and grounded case comment generation through Prompt Builder on the case comment screen.</li>
-          <li><b>Similar case matching</b> on the Case record, matched on subject, description, issue type and product, restricted to resolved cases with real comments.</li>
+          <li><b>A custom similar case matching engine</b>, combining SOSL candidate search, SOQL filtering and weighted multi field scoring, surfacing resolution patterns from historical cases rather than just near duplicates.</li>
+          <li><b>Built on Flow orchestration, Prompt Builder templates and Invocable Apex</b> for context assembly, with a usage and feedback layer measuring whether reps actually adopted the suggestions.</li>
           <li><b>Agentforce Flex Credit overage root cause analysis and control playbook</b>, written as an internal leadership briefing: what was over, where the credits went, when, why, and the controls to stop it recurring.</li>
           <li><b>Salesforce MCP adoption</b> with propose, approve, dispatch and verify gating, and independent checks that prove the target org is a sandbox before any write leaves.</li>
         </ul>
@@ -493,10 +497,12 @@ footer a:hover{color:var(--electric)}
         <p class="loc">Bengaluru, India / Aug 2025 to Present</p>
         <ul>
           <li>Built <b>BV Cortex</b>, an agentic control plane over the Salesforce estate, and <b>AI Apex Test Autopilot</b>, autonomous Apex test generation inside the Einstein trust boundary.</li>
-          <li>Authored the <b>Claude skills that automate delivery</b> end to end, over a native Salesforce CI/CD application I also architected and built.</li>
+          <li>Sole architect and developer of <b>BV DevOps</b>, a native Salesforce CI/CD application: three deployment flows on one engine, GitHub and Jira Cloud integrated through Named Credentials, GitHub Actions dispatched from Apex, and branch resolution that holds up against a <b>2,600+ branch repository</b>.</li>
+          <li>Authored the <b>Claude skills that drive it</b> end to end: branch and pull request, validation and deployment, unit test generation, the Confluence write up and the Jira status update.</li>
           <li>Instrumented the <b>Support AI platform</b> and produced the <b>Agentforce credit governance</b> playbook for leadership.</li>
           <li>Owned the <b>DocuSign platform migration</b> against a hard vendor end of life: the legacy eSignature app and CPQ bridge stop working on 16 October 2026, and DocuSign's own migration tool cannot convert CPQ integrations. Rebuilt the send path on the Apex Toolkit, converted a backlog of <b>87,809 quote documents</b> on demand at send time, and cleared <b>ten defects</b>, several of which only became visible once the one before it was fixed.</li>
           <li>Diagnosed <b>revenue data integrity</b> across account hierarchies and service contracts, proving the Booked ARR calculation correct and finding the real cause rather than rewriting logic that already worked.</li>
+          <li>Shipped across the platform: a <b>three tier SLA system</b> for Sales Qualified Tasks on Custom Metadata thresholds, a <b>Certinia PSA</b> scheduled hours fix root caused to org configuration and backfilled across roughly <b>300 records</b>, a data load tool that polls Jira and parses CSV and XLSX in Apex, and a <b>Playwright</b> regression suite covering a 21 step sales flow.</li>
           <li>Ran the Salesforce service queue alongside the build work, covering access governance, user lifecycle, CPQ quote and amendment defects, and Certinia PSA support.</li>
         </ul>
       </div>
